@@ -6,6 +6,7 @@ services:
       context: ./bachmanity-server
       dockerfile: ./docker/Dockerfile
     image: lastpenguin/bachmanity-server
+    working_dir: /app/
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     ports:
       - 3000:3000
@@ -19,9 +20,9 @@ services:
       - ./bachmanity-server:/app/
     command: "npm start"
 
-  # pg:
-  #   image: postgres:11
-  #   ports: 
-  #     - 5432:5432
-  #   volumes:
-  #     - ./.db_data:/var/lib/postgresql/data
+  pg:
+    image: postgres:11
+    ports: 
+      - 5432:5432
+    volumes:
+      - ./.db_data:/var/lib/postgresql/data
