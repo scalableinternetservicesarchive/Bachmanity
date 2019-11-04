@@ -7,11 +7,13 @@ services:
       dockerfile: ./docker/Dockerfile
     image: lastpenguin/bachmanity-server
     working_dir: /app/
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0' -e production"
     ports:
       - 3000:3000
     volumes:
       - ./bachmanity-server:/app
+    env_file:
+      - .env  
 
   bachmanity-client:
     image: node:13-alpine
