@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_013619) do
+ActiveRecord::Schema.define(version: 2019_11_04_014731) do
 
   create_table "lobbies", force: :cascade do |t|
     t.string "title"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 2019_11_04_013619) do
     t.index ["User_id"], name: "index_lobby_messages_on_User_id"
   end
 
+  create_table "lobby_playlists", force: :cascade do |t|
+    t.string "videoUrl"
+    t.integer "Lobby_id", null: false
+    t.integer "User_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["Lobby_id"], name: "index_lobby_playlists_on_Lobby_id"
+    t.index ["User_id"], name: "index_lobby_playlists_on_User_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "passwordsha256"
@@ -39,4 +49,6 @@ ActiveRecord::Schema.define(version: 2019_11_04_013619) do
 
   add_foreign_key "lobby_messages", "Lobbies"
   add_foreign_key "lobby_messages", "Users"
+  add_foreign_key "lobby_playlists", "Lobbies"
+  add_foreign_key "lobby_playlists", "Users"
 end

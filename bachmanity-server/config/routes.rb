@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :lobby_playlists
   resources :lobby_messages
   resources :users
   resources :lobbies
