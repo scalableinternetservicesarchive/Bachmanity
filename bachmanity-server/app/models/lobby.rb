@@ -1,2 +1,0 @@
-class Lobby < ApplicationRecord
-end
