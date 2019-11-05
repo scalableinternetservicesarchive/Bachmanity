@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/local/Cellar/tsung/1.7.0/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="notice" version="1.0">
+    <clients>
+        <client host="localhost" use_controller_vm="true"/>
+    </clients>
+
+    <servers>
+        <server host="localhost" port="3000" type="tcp"/>
+    </servers>
+
+    <load>
+        <arrivalphase phase="1" duration="1" unit="second">
+            <users interarrival="1" unit="second"></users>
+        </arrivalphase>
+    </load>
+
+    <sessions>
+        <session name="http-example" probability="100" type="ts_http">
+            <request>
+                <dyn_variable name="uid" jsonpath="id"/>
+                <dyn_variable name="uname" jsonpath="name"/>
+                <http url="/users" method="POST" 
+                    contents='{"name": "gareth", "passwordsha256": "asdf"}' 
+                    content_type="application/json" />
+            </request>
+
+            <request>
+                <dyn_variable name="lid" jsonpath="id"/>
+                <http url="/lobbies" method="POST" 
+                    contents='{"title": "some lobby title", "desc": "some desc", "currentVideoUrl": "none"}' 
+                    content_type="application/json" />
+            </request>
+
+            <request>
+                <dyn_variable name="lid" jsonpath="id"/>
+                <http url="/lobbies" method="POST" 
+                    contents='{"title": "some lobby title", "desc": "some desc", "currentVideoUrl": "none"}' 
+                    content_type="application/json" />
+            </request>
+        </session>
+    </sessions>
+</tsung>

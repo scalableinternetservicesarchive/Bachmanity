@@ -18,7 +18,8 @@ class LobbyMessagesController < ApplicationController
     @lobby_message = LobbyMessage.new(lobby_message_params)
 
     if @lobby_message.save
-      render json: @lobby_message, status: :created, location: @lobby_message
+      # NOTE: @lobby_lobby_message is most likely NOT correct
+      render json: @lobby_message, status: :created, location: @lobby_lobby_message
     else
       render json: @lobby_message.errors, status: :unprocessable_entity
     end
@@ -46,6 +47,6 @@ class LobbyMessagesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def lobby_message_params
-      params.require(:lobby_message).permit(:message, :Lobby_id, :User_id)
+      params.require(:lobby_message).permit(:message, :lobby_id, :user_id)
     end
 end
