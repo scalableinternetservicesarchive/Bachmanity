@@ -1,4 +1,4 @@
 class LobbyMessage < ApplicationRecord
-  belongs_to :Lobby
-  belongs_to :User
+  belongs_to :lobby
+  belongs_to :user
 end

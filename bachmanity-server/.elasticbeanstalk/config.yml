@@ -1,0 +1,23 @@
+branch-defaults:
+  default:
+    environment: Bachmanity
+    group_suffix: null
+environment-defaults:
+  Bachmanity:
+    branch: null
+    repository: null
+global:
+  application_name: Bachmanity
+  branch: null
+  default_ec2_keyname: Bachmanity
+  default_platform: arn:aws:elasticbeanstalk:us-west-2::platform/Puma with Ruby 2.6
+    running on 64bit Amazon Linux/2.11.0
+  default_region: us-west-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: null
+  workspace_type: Application

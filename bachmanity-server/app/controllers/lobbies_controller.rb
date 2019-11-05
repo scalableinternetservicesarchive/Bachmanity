@@ -3,8 +3,8 @@ class LobbiesController < ApplicationController
 
   # GET /lobbies
   def index
+    # @lobbies = Lobby.where("id = ?", params[:id])
     @lobbies = Lobby.all
-
     render json: @lobbies
   end
 

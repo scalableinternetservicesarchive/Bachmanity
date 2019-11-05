@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_014731) do
+ActiveRecord::Schema.define(version: 2019_11_05_004438) do
 
   create_table "lobbies", force: :cascade do |t|
     t.string "title"
@@ -22,22 +22,12 @@ ActiveRecord::Schema.define(version: 2019_11_04_014731) do
 
   create_table "lobby_messages", force: :cascade do |t|
     t.string "message"
-    t.integer "Lobby_id", null: false
-    t.integer "User_id", null: false
+    t.integer "lobby_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["Lobby_id"], name: "index_lobby_messages_on_Lobby_id"
-    t.index ["User_id"], name: "index_lobby_messages_on_User_id"
-  end
-
-  create_table "lobby_playlists", force: :cascade do |t|
-    t.string "videoUrl"
-    t.integer "Lobby_id", null: false
-    t.integer "User_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["Lobby_id"], name: "index_lobby_playlists_on_Lobby_id"
-    t.index ["User_id"], name: "index_lobby_playlists_on_User_id"
+    t.index ["lobby_id"], name: "index_lobby_messages_on_lobby_id"
+    t.index ["user_id"], name: "index_lobby_messages_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,8 +37,6 @@ ActiveRecord::Schema.define(version: 2019_11_04_014731) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "lobby_messages", "Lobbies"
-  add_foreign_key "lobby_messages", "Users"
-  add_foreign_key "lobby_playlists", "Lobbies"
-  add_foreign_key "lobby_playlists", "Users"
+  add_foreign_key "lobby_messages", "lobbies"
+  add_foreign_key "lobby_messages", "users"
 end

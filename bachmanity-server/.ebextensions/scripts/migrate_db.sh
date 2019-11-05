@@ -1,5 +1,6 @@
+#!/bin/bash
 if [ "${PROCESS}" = "WEB" ]; then
-
+  
   . /opt/elasticbeanstalk/hooks/common.sh
 
   EB_SUPPORT_FILES=$(/opt/elasticbeanstalk/bin/get-config container -k support_files_dir)
