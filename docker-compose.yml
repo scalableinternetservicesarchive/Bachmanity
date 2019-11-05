@@ -19,7 +19,9 @@ services:
     image: node:13-alpine
     working_dir: /app/
     volumes: 
-      - ./bachmanity-server:/app/
+      - ./bachmanity-client:/app/
+    ports:
+      - 5000:3000
     command: "npm start"
 
   pg:
