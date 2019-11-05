@@ -10,8 +10,8 @@
     </servers>
 
     <load>
-        <arrivalphase phase="1" duration="1" unit="second">
-            <users interarrival="1" unit="second"></users>
+        <arrivalphase phase="1" duration="60" unit="second">
+            <users arrivalrate="10" unit="second"></users>
         </arrivalphase>
     </load>
 
@@ -32,10 +32,9 @@
                     content_type="application/json" />
             </request>
 
-            <request>
-                <dyn_variable name="lid" jsonpath="id"/>
-                <http url="/lobbies" method="POST" 
-                    contents='{"title": "some lobby title", "desc": "some desc", "currentVideoUrl": "none"}' 
+            <request subst="true">
+                <http url="/lobbies/%%_lid%%/lobby_messages" method="POST" 
+                    contents='{"lobby_id": "%%_lid%%", "user_id": "%%_uid%%", "message": "hello world!"}' 
                     content_type="application/json" />
             </request>
         </session>
