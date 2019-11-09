@@ -1,5 +1,6 @@
 class LobbyMessagesController < ApplicationController
   before_action :set_lobby_message, only: [:show, :update, :destroy]
+  before_action :sanitize_page_params 
 
   # GET /lobby_messages
   def index
@@ -15,6 +16,10 @@ class LobbyMessagesController < ApplicationController
 
   # POST /lobby_messages
   def create
+    puts "the parameters to the create request were:"
+    puts params 
+    puts lobby_message_params
+
     @lobby_message = LobbyMessage.new(lobby_message_params)
 
     if @lobby_message.save
@@ -25,20 +30,6 @@ class LobbyMessagesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /lobby_messages/1
-  def update
-    if @lobby_message.update(lobby_message_params)
-      render json: @lobby_message
-    else
-      render json: @lobby_message.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /lobby_messages/1
-  def destroy
-    @lobby_message.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lobby_message
@@ -47,6 +38,15 @@ class LobbyMessagesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def lobby_message_params
-      params.require(:lobby_message).permit(:message, :lobby_id, :user_id)
+      params.require(:lobby_message)
+        .permit(:message, :lobby_id, :user_id)
+        .reverse_merge({
+          :lobby_id => params[:lobby_id],
+        })
+    end
+
+    # converts the parameters to integers 
+    def sanitize_page_params
+      params[:lobby_id] = params[:lobby_id].to_i
     end
 end
