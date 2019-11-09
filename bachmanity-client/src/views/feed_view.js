@@ -12,14 +12,13 @@ export default observer(class FeedView extends React.Component {
   }
 
   render() {
-
     const lobbyList = model.state.lobbies && model.state.lobbies.map((lobby) => {
       return (
         <div key={lobby.id}>
           <LobbyListItem
             lobbyTitle={lobby.title}
             lobbyDesc={lobby.desc}
-            lobbyUrl={lobby.currentVideoUrl}
+            videoId={lobby.currentVideoId}
           />
         </div>
       );

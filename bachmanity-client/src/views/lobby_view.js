@@ -1,7 +1,32 @@
 import React from 'react';
-export default (props) => {
-  const params = props.match.params;
-  return (
-    <h1>LobbyView for Lobby {params.id}</h1>
-  )
-}
+import { observer } from "mobx-react";
+import model from "../model";
+import VideoPlayer from "../components/video_player";
+
+export default observer(class LobbyView extends React.Component {
+  state={}
+  componentDidMount() {
+    model.lobby.getInfo(this.props.match.params.id)
+      .then((lobbyInfo) => {
+        this.setState({
+          lobbyInfo:lobbyInfo
+        })
+      })
+      .catch(err => {
+        alert("Failed to load lobby"+err);
+      })
+  }
+
+  render() {
+
+    if(!this.state.lobbyInfo){
+      return <h1>Loading...</h1>
+    }
+    return (
+      <div>
+        <h1>Lobby View</h1>
+        <VideoPlayer videoId={this.state.lobbyInfo.currentVideoId}/>
+      </div>
+    );
+  }
+})

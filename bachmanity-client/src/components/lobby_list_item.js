@@ -19,7 +19,7 @@ export default class LobbyListItem extends React.Component {
               <Row className="VideoThumbnail">
                 <VideoThumbnail
                   className="VideoThumbnail"
-                  videoId={this.props.lobbyUrl}
+                  videoId={this.props.videoId}
                 />
               </Row>
             </Col>
