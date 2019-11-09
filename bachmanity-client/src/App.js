@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import FeedView from "./views/feed_view";
 import LobbyView from "./views/lobby_view";
+import VideoPlayer from "./components/video_player";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/lobby/:id" component={LobbyView} />
+          <Route path="/testVideo" component={VideoPlayer} />
           <Route path="/">
             <FeedView />
           </Route>
