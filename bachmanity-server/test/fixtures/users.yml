@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  passwordsha256: MyString
+  password_digest: <%= BCrypt::Password.create('secret') %>
 
 two:
   name: MyString
-  passwordsha256: MyString
+  password_digest: <%= BCrypt::Password.create('secret') %>
