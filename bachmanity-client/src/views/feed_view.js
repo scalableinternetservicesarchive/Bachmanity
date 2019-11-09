@@ -19,7 +19,7 @@ export default observer(class FeedView extends React.Component {
   
     return (
       <div>
-        <h1>Feed View</h1>
+        <h1>Feed  ew</h1>
         <ul>{lobbyList}</ul>
       </div>
     );
