@@ -46,6 +46,6 @@ class LobbiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def lobby_params
-      params.require(:lobby).permit(:title, :desc, :currentVideoUrl)
+      params.require(:lobby).permit(:title, :desc, :currentVideoId)
     end
 end
