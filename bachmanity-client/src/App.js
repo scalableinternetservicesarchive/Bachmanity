@@ -13,12 +13,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FeedView from "./views/feed_view";
 import LobbyView from "./views/lobby_view";
 import VideoPlayer from "./components/video_player";
+import LoginView from "./views/login_view";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Switch>
+          <Route path="/users" component={LoginView} />
           <Route path="/lobby/:id" component={LobbyView} />
           <Route path="/testVideo" component={VideoPlayer} />
           <Route path="/">
