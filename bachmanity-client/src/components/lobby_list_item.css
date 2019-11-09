@@ -1,0 +1,12 @@
+.LobbyItem {
+  width: 490px;
+  height: 480px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black;
+}
+
+.VideoThumbnail {
+  position: absolute;
+  bottom: 0;
+}
