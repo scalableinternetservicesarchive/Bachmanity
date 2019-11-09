@@ -11,5 +11,12 @@ export default {
 
   getAll: () => {
     return state.lobbies;
+  },
+
+  //new method
+  // load a lobby, make request to web server, get cur video
+  getInfo: async (id) => {
+    const res = await axios.get(config.backend + "/lobbies/"+id);
+    return res.data;
   }
 }
