@@ -8,6 +8,8 @@ import {
   Link
 } from "react-router-dom";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import FeedView from "./views/feed_view";
 import LobbyView from "./views/lobby_view";
 
