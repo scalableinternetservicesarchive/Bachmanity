@@ -7,23 +7,15 @@ export default class LobbyListItem extends React.Component {
 
   render() {
     return (
-      <div>
-          <Container>
-            <Col className="LobbyItem">
-              <Row>
-                {this.props.lobbyTitle}
-              </Row>
-              <Row>
-                {this.props.lobbyDesc}
-              </Row>
-              <Row className="VideoThumbnail">
-                <VideoThumbnail
-                  className="VideoThumbnail"
-                  videoId={this.props.videoId}
-                />
-              </Row>
-            </Col>
-          </Container>
+      <div className="LobbyItem">
+        <div className="content">
+          <h1>{this.props.lobbyTitle}</h1>
+          {/* <p>{this.props.lobbyDesc}</p> */}
+        </div>
+        <VideoThumbnail
+          className="VideoThumbnail"
+          videoId={this.props.videoId}
+        />
       </div>
     )
   }

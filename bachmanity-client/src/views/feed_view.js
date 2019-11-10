@@ -14,19 +14,18 @@ export default observer(class FeedView extends React.Component {
   render() {
     const lobbyList = model.state.lobbies && model.state.lobbies.map((lobby) => {
       return (
-        <div key={lobby.id}>
-          <LobbyListItem
-            lobbyTitle={lobby.title}
-            lobbyDesc={lobby.desc}
-            videoId={lobby.currentVideoId}
-          />
-        </div>
+        <LobbyListItem 
+          key={lobby.id}
+          lobbyTitle={lobby.title}
+          lobbyDesc={lobby.desc}
+          videoId={lobby.currentVideoId}
+        />
       );
     });
   
     return (
       <div>
-        <h1>Feed View</h1>
+        <center><h1>Feed View</h1></center>
         <div className="LobbyList">
           {lobbyList}
         </div>

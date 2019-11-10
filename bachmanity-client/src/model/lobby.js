@@ -18,5 +18,13 @@ export default {
   getInfo: async (id) => {
     const res = await axios.get(config.backend + "/lobbies/"+id);
     return res.data;
+  },
+
+  getNewMessages: async (lobbyId, lastMessageId = null) => {
+    if (!lastMessageId)
+      lastMessageId = 0;
+    
+    const res = await axios.get(config.backend + "/lobbies/new_messages/" + lastMessageId)
+    return res.data;
   }
 }
