@@ -24,7 +24,7 @@ export default {
     if (!lastMessageId)
       lastMessageId = 0;
     
-    const res = await axios.get(config.backend + "/lobbies/new_messages/" + lastMessageId)
+    const res = await axios.get(config.backend + "/lobbies/" + lobbyId + "/lobby_messages/new_messages/" + lastMessageId)
     return res.data;
   }
 }

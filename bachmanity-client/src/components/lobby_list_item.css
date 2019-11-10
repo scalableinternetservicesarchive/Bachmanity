@@ -11,6 +11,11 @@
   padding-right: 10px;
 }
 
+.LobbyItemWrapper a, .LobbyItemWrapper a:hover {
+  text-decoration: none;
+  color: white;
+}
+
 .VideoThumbnail {
   position: absolute;
   bottom: 0;

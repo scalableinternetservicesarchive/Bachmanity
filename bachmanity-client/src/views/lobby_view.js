@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from "mobx-react";
 import model from "../model";
 import VideoPlayer from "../components/video_player";
+import MessageBox from "../components/message_box";
 
 export default observer(class LobbyView extends React.Component {
   state={}
@@ -26,6 +27,7 @@ export default observer(class LobbyView extends React.Component {
       <div>
         <h1>Lobby View</h1>
         <VideoPlayer videoId={this.state.lobbyInfo.currentVideoId}/>
+        <MessageBox lobbyId={this.props.match.params.id} />
       </div>
     );
   }

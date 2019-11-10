@@ -10,8 +10,8 @@ export default class VideoPlayer extends React.Component {
           playerVars: { // https://developers.google.com/youtube/player_parameters
             autoplay: true,
             start: 0,
-            disablekb: 1,
-            controls: 0,
+            disablekb: 0,
+            controls: 1,
           }
         }}
       />

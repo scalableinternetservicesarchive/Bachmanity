@@ -4,6 +4,10 @@ import model from "../model";
 import LobbyListItem from '../components/lobby_list_item';
 import './feed_view.css'
 
+import {
+  Link
+} from "react-router-dom";
+
 
 export default observer(class FeedView extends React.Component {
 
@@ -14,12 +18,16 @@ export default observer(class FeedView extends React.Component {
   render() {
     const lobbyList = model.state.lobbies && model.state.lobbies.map((lobby) => {
       return (
-        <LobbyListItem 
-          key={lobby.id}
-          lobbyTitle={lobby.title}
-          lobbyDesc={lobby.desc}
-          videoId={lobby.currentVideoId}
-        />
+        <div className="LobbyItemWrapper">
+          <Link to={"/lobby/" + lobby.id} >
+            <LobbyListItem 
+              key={lobby.id}
+              lobbyTitle={lobby.title}
+              lobbyDesc={lobby.desc}
+              videoId={lobby.currentVideoId}
+            />
+          </Link>
+        </div>
       );
     });
   
