@@ -9,6 +9,15 @@ class LobbyMessagesController < ApplicationController
     render json: @lobby_messages
   end
 
+  # GET /lobby_messages/:lobby_id/new_messages/:since
+  def new_messages
+    params[:seqno] = params[:seqno].to_i
+
+    @lobby_messages = LobbyMessage.where("lobby_id = ? AND id > ?", params[:lobby_id], params[:seqno])
+
+    render json: @lobby_messages
+  end 
+
   # GET /lobby_messages/1
   def show
     render json: @lobby_message

@@ -1,0 +1,17 @@
+.LobbyItem {
+  border-width: 2px;
+  border-style: solid;
+  border-color:grey;
+  margin: 10px;
+  background-color: rgba(255,255,255,0.2);
+}
+
+.LobbyItem .content {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.VideoThumbnail {
+  position: absolute;
+  bottom: 0;
+}

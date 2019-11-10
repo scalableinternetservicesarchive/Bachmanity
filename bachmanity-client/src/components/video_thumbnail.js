@@ -1,7 +1,14 @@
 import React from "react";
 
 export default (props) => {
+  var videoId = props.videoId
+  var videoUrl = "http://img.youtube.com/vi/".concat(videoId).concat("/0.jpg")
   return (
-    <img src="http://img.youtube.com/vi/{props.videoId}/0.jpg" style={{width: "100%", height: "100%"}} />
+    <div style={{
+      width: "480px", height: "270px",
+      backgroundImage: 'url(' + videoUrl + ')',
+      backgroundPosition: 'center',
+      backgroundSize: 'auto',
+    }}/>
   )
 }
