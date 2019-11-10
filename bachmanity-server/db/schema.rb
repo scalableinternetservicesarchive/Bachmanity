@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_004438) do
+ActiveRecord::Schema.define(version: 2) do
 
   create_table "lobbies", force: :cascade do |t|
     t.string "title"
@@ -32,9 +32,10 @@ ActiveRecord::Schema.define(version: 2019_11_05_004438) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "passwordsha256"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_users_on_name", unique: true
   end
 
   add_foreign_key "lobby_messages", "lobbies"

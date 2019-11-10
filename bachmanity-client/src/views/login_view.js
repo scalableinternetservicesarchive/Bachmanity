@@ -3,9 +3,9 @@ import model from "../model";
 import axios from "axios";
 import config from "../config";
 // import state from "./state";
-import qs from 'querystring';
 import {observer} from "mobx-react"
 import {action} from "mobx";
+import "./login_view.css";
 
 export default observer(class LoginView extends React.Component {
   state = {
@@ -17,25 +17,44 @@ export default observer(class LoginView extends React.Component {
     config.API_Host = config.backend;
         
     event.preventDefault();
-
+    
+    
     const body = {
-        username: this.state.username,
-        password: this.state.password,
-    }
-
-    axios.post(config.API_Host + "/users", qs.stringify(body), {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    //actions modify the state mobx
-    }).then(action((res) => {
-        model.state.userAccount = {
+        user: {
             name: this.state.username,
-            passwordsha256: this.state.password
+            password: this.state.password,
+        }
+    }
+    console.log(body)
+
+    axios.post(config.API_Host + "/users", body, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }).then(action((res) => {
+        console.log(res)
+        model.state.userAccount = {
+            user: {
+                name: this.state.username,
+                password: this.state.password
+            }
         }
     })).catch(action((err) => {
         console.log(err)
-    }));
+    }));;
+
+ 
+    //actions modify the state mobx
+    // }).then(action((res) => {
+    //     model.state.userAccount = {
+    //         user: {
+    //             name: this.state.username,
+    //             password: this.state.password
+    //         }
+    //     }
+    // })).catch(action((err) => {
+    //     console.log(err)
+    // }));
   }
 
   onChange (prop, event) {
@@ -66,7 +85,7 @@ export default observer(class LoginView extends React.Component {
                 value={this.state.password}>
             </input>
             <br/>
-            <input type="submit"></input>
+            <input type="submit"/>
         </form>
       </div>
     );
