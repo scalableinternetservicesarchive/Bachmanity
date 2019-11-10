@@ -1,0 +1,14 @@
+.loginformcontainer {
+    width: 20%;
+    height: auto;
+    background-color:rgb(240,240,240);
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loginformcontainer input {
+    width: 100%;
+}
