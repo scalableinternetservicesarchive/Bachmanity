@@ -24,7 +24,7 @@ export default observer(class LobbyView extends React.Component {
       return <h1>Loading...</h1>
     }
     return (
-      <div>
+      <div style={{width: "100%", height: "100%"}}>
         <h1>Lobby View</h1>
         <VideoPlayer videoId={this.state.lobbyInfo.currentVideoId}/>
         <MessageBox lobbyId={this.props.match.params.id} />

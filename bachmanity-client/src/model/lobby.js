@@ -26,5 +26,14 @@ export default {
     
     const res = await axios.get(config.backend + "/lobbies/" + lobbyId + "/lobby_messages/new_messages/" + lastMessageId)
     return res.data;
-  }
+  },
+
+  postMessage: async (lobbyId, message) => {
+    await axios.post(config.backend + "/lobbies/" + lobbyId + "/lobby_messages", {
+      lobby_message: {
+        user_id: state.user.id,
+        message: message 
+      }
+    })
+  },
 }

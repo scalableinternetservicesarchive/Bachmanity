@@ -1,5 +1,6 @@
 import React from "react";
 import model from "../model";
+import "./message_box.css";
 
 export default class MessageBox extends React.Component {
   state = {
@@ -14,18 +15,20 @@ export default class MessageBox extends React.Component {
           if (serverMessages.length === 0)
             return ;
           
-          let newLastMessageId = this.state.lastMessageId;
           const newMessages = [...this.state.messages];
 
           for (const message of serverMessages) {
-            newLastMessageId = Math.max(message.id, newLastMessageId);
             newMessages.push(message);
           }
 
-          this.setState({
-            lastMessageId: newLastMessageId,
-            messages: newMessages,
-          });
+          newMessages.sort((a, b) => {
+            return b.id - a.id;
+          })
+
+          const newState = Object.assign({}, this.state);
+          newState.lastMessageId = newMessages[0].id;
+          newState.messages = newMessages;
+          this.setState(newState);
         })
         .catch(err => {
           alert("failed to fetch messages: " + err);
@@ -37,14 +40,34 @@ export default class MessageBox extends React.Component {
     clearInterval(this.intervalTimer);
   }
 
+  onChange(event) {
+    const stateCpy = Object.assign({}, this.state);
+    stateCpy["message"] = event.target.value;
+    this.setState(stateCpy);
+  }
+
+  onKeyPress(event) {
+    if (event.key === "Enter") {
+      const stateCpy = Object.assign({}, this.state);
+      stateCpy["message"] = "";
+      this.setState(stateCpy);
+      model.lobby.postMessage(this.props.lobbyId, this.state.message);
+    }
+  }
+
   render() {
+    console.log(this.state.messages);
     const messagesDom = this.state.messages.map((msg) => {
-      return <li key={msg.id}>{msg.message}</li>
+      return <div className="message" key={msg.id}>{msg.id} : {msg.message}</div>
     });
 
     return (
-      <div>
-        <p>Messages: </p>
+      <div className="messageBox">
+        <input className="messageInput" 
+          name="message" 
+          onKeyPress={this.onKeyPress.bind(this)}
+          value={this.state.message}
+          onChange={this.onChange.bind(this)} />
         {messagesDom}
       </div>
     );
