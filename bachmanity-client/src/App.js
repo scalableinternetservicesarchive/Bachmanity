@@ -21,6 +21,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/users" component={LoginView} />
+          <Route path="/lobbies" component={FeedView} />
           <Route path="/lobby/:id" component={LobbyView} />
           <Route path="/testVideo" component={VideoPlayer} />
           <Route path="/">
