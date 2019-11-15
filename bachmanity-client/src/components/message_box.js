@@ -50,8 +50,8 @@ export default class MessageBox extends React.Component {
     if (event.key === "Enter") {
       const stateCpy = Object.assign({}, this.state);
       stateCpy["message"] = "";
-      this.setState(stateCpy);
       model.lobby.postMessage(this.props.lobbyId, this.state.message);
+      this.setState(stateCpy);
     }
   }
 
