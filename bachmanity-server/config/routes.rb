@@ -17,8 +17,9 @@ Rails.application.routes.draw do
   end
 
   # routes for sigup / signin / signout
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: [:new, :create, :destroy, :show]
   get 'signup', to: 'users#create', as: 'signup'
-  get 'login', to: 'sessions#create', as: 'login'
+  get 'loggedin', to: 'sessions#show', as: 'loggedin'
+  post 'login', to: 'sessions#create', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
 end
