@@ -1,58 +1,58 @@
-import React from 'react';
+import React from "react";
 import model from "../model";
 import axios from "axios";
 import config from "../config";
 // import state from "./state";
-import {observer} from "mobx-react"
-import {action} from "mobx";
+import { observer } from "mobx-react";
+import { action } from "mobx";
 import "./login_view.css";
 
-export default observer(class LoginView extends React.Component {
-  state = {
+export default observer(
+  class LoginView extends React.Component {
+    state = {
       username: "",
       password: ""
-  }
+    };
 
-  onSubmit (event) {        
-    event.preventDefault();
-    model.user.login(this.state.username, this.state.password).then(() => {
+    onSubmit(event) {
+      event.preventDefault();
+      model.user.login(this.state.username, this.state.password).then(() => {
         model.user.updateCurrentUser();
-    })
-    this.setState({username: "",password: ""})
+      });
+      this.setState({ username: "", password: "" });
+    }
 
-  }
-
-  onChange (prop, event) {
+    onChange(prop, event) {
       const state = Object.assign({}, this.state);
       state[prop] = event.target.value;
       this.setState(state);
+    }
 
-  }
-
-  render() {
-    return (
-      <div className="logincontainer">
-        <form onSubmit = {this.onSubmit.bind(this)}>
+    render() {
+      return (
+        <div className="logincontainer">
+          <form onSubmit={this.onSubmit.bind(this)}>
             <h3>Login</h3>
             <span>Username</span>
-            <input 
-                name="username"
-                type="text"
-                onChange={this.onChange.bind(this,"username")}
-                value={this.state.username}>
-            </input>
-            <br/>
+            <input
+              name="username"
+              type="text"
+              onChange={this.onChange.bind(this, "username")}
+              value={this.state.username}
+            ></input>
+            <br />
             <span>Password</span>
             <input
-                name="password"
-                type="text"
-                onChange={this.onChange.bind(this,"password")}
-                value={this.state.password}>
-            </input>
-            <br/>
-            <input type="submit"/>
-        </form>
-      </div>
-    );
+              name="password"
+              type="text"
+              onChange={this.onChange.bind(this, "password")}
+              value={this.state.password}
+            ></input>
+            <br />
+            <input type="submit" />
+          </form>
+        </div>
+      );
+    }
   }
-});
+);

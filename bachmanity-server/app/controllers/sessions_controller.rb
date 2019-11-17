@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       puts "\tauthed successfully!"
       session[:user_id] = user.id
+      puts "\tsession: #{session}"
       render json: user
     else
       render json: nil 
@@ -16,6 +17,8 @@ class SessionsController < ApplicationController
   end
   
   def show
+    puts "showing the current loggedin user's info"
+    puts "\tsession: #{session}"
     render json: current_user
   end
 
