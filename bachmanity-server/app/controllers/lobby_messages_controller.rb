@@ -5,14 +5,12 @@ class LobbyMessagesController < ApplicationController
   # GET /lobby_messages
   def index
     @lobby_messages = LobbyMessage.where("lobby_id = ?", params[:lobby_id])
-
     render json: @lobby_messages
   end
 
   # GET /lobby_messages/:lobby_id/new_messages/:since
   def new_messages
     params[:seqno] = params[:seqno].to_i
-
     @lobby_messages = LobbyMessage.where("lobby_id = ? AND id > ?", params[:lobby_id], params[:seqno])
 
     render json: @lobby_messages
@@ -25,10 +23,6 @@ class LobbyMessagesController < ApplicationController
 
   # POST /lobby_messages
   def create
-    puts "the parameters to the create request were:"
-    puts params 
-    puts lobby_message_params
-
     @lobby_message = LobbyMessage.new(lobby_message_params)
 
     if @lobby_message.save

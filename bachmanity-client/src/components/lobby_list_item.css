@@ -1,7 +1,4 @@
 .LobbyItem {
-  border-width: 2px;
-  border-style: solid;
-  border-color: grey;
   margin: 10px;
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -13,8 +10,13 @@
 
 .LobbyItemWrapper a,
 .LobbyItemWrapper a:hover {
+  /* text-align: center; */
   text-decoration: none;
-  color: white;
+  color: black;
+}
+
+.LobbyItemWrapper:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .VideoThumbnail {

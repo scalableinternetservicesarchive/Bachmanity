@@ -13,18 +13,32 @@ export default {
     return state.lobbies;
   },
 
+  createLobby: async (title, desc, videoId) => {
+    const res = await axios.post(config.backend + "/lobbies", {
+      title: title,
+      desc: desc,
+      currentVideoId: videoId
+    });
+
+    if (state.lobbies) state.lobbies.push(res.data);
+    else state.lobbies = [res.data];
+
+    return res.data;
+  },
+
   //new method
   // load a lobby, make request to web server, get cur video
-  getInfo: async (id) => {
-    const res = await axios.get(config.backend + "/lobbies/"+id);
+  getInfo: async id => {
+    const res = await axios.get(config.backend + "/lobbies/" + id);
     return res.data;
   },
 
   getNewMessages: async (lobbyId, lastMessageId = null) => {
-    if (!lastMessageId)
-      lastMessageId = 0;
-    
-    const res = await axios.get(config.backend + "/lobbies/" + lobbyId + "/lobby_messages/new_messages/" + lastMessageId)
+    if (!lastMessageId) lastMessageId = 0;
+
+    const res = await axios.get(
+      config.backend + "/lobbies/" + lobbyId + "/lobby_messages/new_messages/" + lastMessageId
+    );
     return res.data;
   },
 
@@ -32,8 +46,8 @@ export default {
     await axios.post(config.backend + "/lobbies/" + lobbyId + "/lobby_messages", {
       lobby_message: {
         user_id: state.user.id,
-        message: message 
+        message: message
       }
-    })
-  },
-}
+    });
+  }
+};

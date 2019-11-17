@@ -15,6 +15,7 @@ Rails.application.routes.draw do
           get 'new_messages/:seqno', to: "lobby_messages#new_messages"
         end 
       end
+      resources :queued_videos, only: [:index, :create, :destroy]
     end
 
     # routes for sigup / signin / signout

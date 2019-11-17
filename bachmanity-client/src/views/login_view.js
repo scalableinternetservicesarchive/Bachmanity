@@ -1,10 +1,7 @@
 import React from "react";
 import model from "../model";
-import axios from "axios";
-import config from "../config";
 // import state from "./state";
 import { observer } from "mobx-react";
-import { action } from "mobx";
 import "./login_view.css";
 
 export default observer(
@@ -39,7 +36,7 @@ export default observer(
       return (
         <div className="logincontainer">
           <form onSubmit={this.onSubmit.bind(this)}>
-            <h3>Login</h3>
+            <h3>Bachmanity Login</h3>
             <span>Username</span>
             <input
               name="username"

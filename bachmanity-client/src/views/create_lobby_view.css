@@ -1,4 +1,4 @@
-.logincontainer {
+.createlobbycontainer {
   width: 20%;
   height: auto;
   background-color: rgba(240, 240, 240, 0.2);
@@ -9,12 +9,12 @@
   transform: translate(-50%, -50%);
 }
 
-.logincontainer input {
+.createlobbycontainer input {
   width: 100%;
   margin-bottom: 10px;
 }
 
-.logincontainer input[type="submit"] {
+.createlobbycontainer input[type="submit"] {
   border-radius: 10px;
   background-color: rgba(50, 155, 255, 1);
   border-style: none;

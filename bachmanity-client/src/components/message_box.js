@@ -5,16 +5,16 @@ import "./message_box.css";
 export default class MessageBox extends React.Component {
   state = {
     lastMessageId: 0,
-    messages: [],
-  }
+    messages: []
+  };
 
   componentDidMount() {
     this.intervalTimer = setInterval(() => {
-      model.lobby.getNewMessages(this.props.lobbyId, this.state.lastMessageId)
-        .then((serverMessages) => {
-          if (serverMessages.length === 0)
-            return ;
-          
+      model.lobby
+        .getNewMessages(this.props.lobbyId, this.state.lastMessageId)
+        .then(serverMessages => {
+          if (serverMessages.length === 0) return;
+
           const newMessages = [...this.state.messages];
 
           for (const message of serverMessages) {
@@ -23,7 +23,7 @@ export default class MessageBox extends React.Component {
 
           newMessages.sort((a, b) => {
             return b.id - a.id;
-          })
+          });
 
           const newState = Object.assign({}, this.state);
           newState.lastMessageId = newMessages[0].id;
@@ -57,17 +57,23 @@ export default class MessageBox extends React.Component {
 
   render() {
     console.log(this.state.messages);
-    const messagesDom = this.state.messages.map((msg) => {
-      return <div className="message" key={msg.id}>{msg.id} : {msg.message}</div>
+    const messagesDom = this.state.messages.map(msg => {
+      return (
+        <div className="message" key={msg.id}>
+          {msg.id} : {msg.message}
+        </div>
+      );
     });
 
     return (
       <div className="messageBox">
-        <input className="messageInput" 
-          name="message" 
+        <input
+          className="messageInput"
+          name="message"
           onKeyPress={this.onKeyPress.bind(this)}
           value={this.state.message}
-          onChange={this.onChange.bind(this)} />
+          onChange={this.onChange.bind(this)}
+        />
         {messagesDom}
       </div>
     );
