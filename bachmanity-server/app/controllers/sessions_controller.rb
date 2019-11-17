@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
     puts "authenticating user #{params[:name]} with password #{params[:password]}"
 
     user = User.find_by_name(params[:name])
+
     if user && user.authenticate(params[:password])
       puts "\tauthed successfully!"
       session[:user_id] = user.id

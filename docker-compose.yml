@@ -1,7 +1,7 @@
-version: '3'
+version: "3"
 
-services: 
-  bachmanity-server: 
+services:
+  bachmanity-server:
     build:
       context: ./bachmanity-server
       dockerfile: ./docker/Dockerfile
@@ -13,12 +13,12 @@ services:
     volumes:
       - ./bachmanity-server:/app
     env_file:
-      - .env  
+      - .env
 
   bachmanity-client:
     image: node:13-alpine
     working_dir: /app/
-    volumes: 
+    volumes:
       - ./bachmanity-client:/app/
     ports:
       - 5000:3000
@@ -26,7 +26,19 @@ services:
 
   pg:
     image: postgres:11
-    ports: 
+    ports:
       - 5432:5432
     volumes:
       - ./.db_data:/var/lib/postgresql/data
+
+  web:
+    image: nginx
+    volumes:
+      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/mime.types:/etc/nginx/mime.types:ro
+    command: [nginx-debug, "-g", "daemon off;"]
+    ports:
+      - "80:80"
+    depends_on:
+      - bachmanity-server
+      - bachmanity-client

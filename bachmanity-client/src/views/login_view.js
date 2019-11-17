@@ -16,9 +16,16 @@ export default observer(
 
     onSubmit(event) {
       event.preventDefault();
-      model.user.login(this.state.username, this.state.password).then(() => {
-        model.user.updateCurrentUser();
-      });
+      model.user
+        .login(this.state.username, this.state.password)
+        .then(() => {
+          model.user.updateCurrentUser().then(res => {
+            if (!res) alert("Bad username or password!");
+          });
+        })
+        .catch(e => {
+          alert("Fatal error on login: " + e);
+        });
       this.setState({ username: "", password: "" });
     }
 

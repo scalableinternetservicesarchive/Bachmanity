@@ -7,6 +7,7 @@
     "bootstrap": "^4.3.1",
     "mobx": "^5.14.2",
     "mobx-react": "^6.1.4",
+    "node-sass": "^4.13.0",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.11.0",
@@ -35,6 +36,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://localhost:3000"
+  }
 }
