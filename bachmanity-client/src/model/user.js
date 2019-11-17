@@ -1,7 +1,6 @@
 import axios from "axios";
 import config from "../config";
 import state from "./state";
-import { assertPropertyConfigurable } from "mobx/lib/internal";
 
 export default {
     updateCurrentUser: async () => {
@@ -10,11 +9,10 @@ export default {
         return state.user;
     },
 
-    login: async () => {
+    login: async (username, password) => {
         const body = {
-            name: this.state.username,
-            password: this.state.password,
-
+            name: username,
+            password: password
         }
 
         const res = await axios.post(config.backend + "/login", body, {

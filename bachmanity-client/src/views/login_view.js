@@ -13,48 +13,13 @@ export default observer(class LoginView extends React.Component {
       password: ""
   }
 
-  onSubmit (event) {
-    config.API_Host = config.backend;
-        
+  onSubmit (event) {        
     event.preventDefault();
-    
-    
-    const body = {
-        user: {
-            name: this.state.username,
-            password: this.state.password,
-        }
-    }
-    console.log(body)
+    model.user.login(this.state.username, this.state.password).then(() => {
+        model.user.updateCurrentUser();
+    })
+    this.setState({username: "",password: ""})
 
-    axios.post(config.API_Host + "/users", body, {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }).then(action((res) => {
-        console.log(res)
-        model.state.userAccount = {
-            user: {
-                name: this.state.username,
-                password: this.state.password
-            }
-        }
-    })).catch(action((err) => {
-        console.log(err)
-    }));;
-
- 
-    //actions modify the state mobx
-    // }).then(action((res) => {
-    //     model.state.userAccount = {
-    //         user: {
-    //             name: this.state.username,
-    //             password: this.state.password
-    //         }
-    //     }
-    // })).catch(action((err) => {
-    //     console.log(err)
-    // }));
   }
 
   onChange (prop, event) {

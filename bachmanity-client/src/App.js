@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {observer} from "mobx-react"
+import {observer} from "mobx-react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +16,7 @@ import LobbyView from "./views/lobby_view";
 import VideoPlayer from "./components/video_player";
 import LoginView from "./views/login_view";
 import model from './model';
-import state from "./state";
+import state from "./model/state";
 
 
 export default observer(class App extends React.Component {
