@@ -32,26 +32,26 @@ class LobbiesController < ApplicationController
   # POST /lobbies
   def create
     Lobby.transaction do
-      QueuedVideo.transaction do 
+      QueuedVideo.transaction do
         @lobby = Lobby.new(lobby_params)
 
-        if not @lobby.save 
+        if not @lobby.save
           render json: @lobby.errors, status: :unprocessable_entity
           raise ActiveRecord::Rollback, "failed to save the lobby"
-        else 
+        else
           @first_queued_video = QueuedVideo.new({
             user: current_user,
             lobby: @lobby,
-            video: params[:currentVideoId]
+            video: params[:currentVideoId],
           })
           if not @first_queued_video.save
             render json: @first_queued_video.errors, status: :unprocessable_entity
             raise ActiveRecord::Rollback, "failed to save the queue'd video"
-          end 
+          end
           render json: @lobby, status: :created, location: @lobby
-        end 
-      end 
-    end 
+        end
+      end
+    end
   end
 
   # DELETE /lobbies/1
@@ -60,13 +60,14 @@ class LobbiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lobby
-      @lobby = Lobby.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def lobby_params
-      params.require(:lobby).permit(:title, :desc, :currentVideoId)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lobby
+    @lobby = Lobby.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def lobby_params
+    params.require(:lobby).permit(:title, :desc, :currentVideoId)
+  end
 end
