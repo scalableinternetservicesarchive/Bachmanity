@@ -16,12 +16,11 @@ class QueuedVideosController < ApplicationController
 
   # GET /queued_videos/:lobby_id/new_videos/:since
   def new_videos
-    puts ("\n\nIN NEW_VIDEOS\n\n")
     params[:seqno] = params[:seqno].to_i
     @queued_videos = QueuedVideo.where("lobby_id = ? AND id > ?", params[:lobby_id], params[:seqno])
 
     render json: @queued_videos
-  end 
+  end
 
   # POST /queued_videos
   def create
