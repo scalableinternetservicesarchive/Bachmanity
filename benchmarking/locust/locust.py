@@ -11,14 +11,16 @@ class UserBehavior(TaskSet):
         username = randomString()
         password = randomString()
 
-        self.client.post("/api/signup", data={
+        print("new user username: " + username + " password: " + password)
+
+        self.client.post("/api/signup", json={
             "user": {
                 "name": username,
                 "password": password
             }
         })
 
-        self.client.post("/api/login", data={
+        self.client.post("/api/login", json={
             "name": username,
             "password": password
         })
@@ -61,9 +63,9 @@ class UserBehavior(TaskSet):
                 )
             # post a test message to the other users in the lobby!
             if random.randint(0, 5) >= 3:
-                self.client.post("/api/lobbies/%s/lobby_messages/", data={
+                self.client.post("/api/lobbies/%s/lobby_messages/", json={
                     "lobby_message": {
-                        "message": "hello world - my message: " + randomString()
+                        "message": randomString()
                     }
                 }, name="/api/lobbies/:lobby_id/lobby_messages/")
 
