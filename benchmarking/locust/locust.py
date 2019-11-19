@@ -42,9 +42,7 @@ class UserBehavior(TaskSet):
 
         def on_start(self):
             lobby_list = self.client.get("/api/lobbies/").json()
-            print(lobby_list)
-            # self.lobby_id = str(random.choice(lobby_list)["id"])
-            self.lobby_id = "1"
+            self.lobby_id = str(random.choice(lobby_list)["id"])
 
         @seq_task(1)
         def get_lobby_metadata(self):
@@ -52,6 +50,7 @@ class UserBehavior(TaskSet):
                             name="/api/lobbies/:lobby_id")
 
         @seq_task(2)
+        @task(20)
         def post_message_and_get_new_messages(self):
             # get new messages for the lobby
             new_messages = self.client.get("/api/lobbies/%s/lobby_messages/new_messages/%s" % (self.lobby_id, self.latest_message_id),
@@ -63,7 +62,7 @@ class UserBehavior(TaskSet):
                 )
             # post a test message to the other users in the lobby!
             if random.randint(0, 5) >= 3:
-                self.client.post("/api/lobbies/%s/lobby_messages/", json={
+                self.client.post("/api/lobbies/%s/lobby_messages/" % self.lobby_id, json={
                     "lobby_message": {
                         "message": randomString()
                     }
