@@ -18,6 +18,8 @@ class LobbyMessagesController < ApplicationController
       .joins(:user)
       .where("lobby_messages.lobby_id = ? AND lobby_messages.id > ?",
              params[:lobby_id], params[:seqno])
+      .limit(100)
+      .order("lobby_messages.id ASC")
 
     render json: results
   end
