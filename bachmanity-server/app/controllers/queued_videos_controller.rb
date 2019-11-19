@@ -1,6 +1,6 @@
 class QueuedVideosController < ApplicationController
   before_action :set_queued_video, only: [:show, :update, :destroy]
-  before_action :sanitize_page_params 
+  before_action :sanitize_page_params
 
   # GET /queued_videos
   def index
@@ -49,22 +49,24 @@ class QueuedVideosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_queued_video
-      @queued_video = QueuedVideo.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def queued_video_params
-      params.require(:queued_video)
-        .permit(:lobby_id, :user_id, :video)
-        .reverse_merge({
-          :lobby_id => params[:lobby_id],
-        })
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_queued_video
+    @queued_video = QueuedVideo.find(params[:id])
+  end
 
-    # converts the parameters to integers 
-    def sanitize_page_params
-      params[:lobby_id] = params[:lobby_id].to_i
-    end
+  # Only allow a trusted parameter "white list" through.
+  def queued_video_params
+    params.require(:queued_video)
+      .permit(:lobby_id, :user_id, :video)
+      .reverse_merge({
+        :lobby_id => params[:lobby_id],
+        :user_id => current_user.id,
+      })
+  end
+
+  # converts the parameters to integers
+  def sanitize_page_params
+    params[:lobby_id] = params[:lobby_id].to_i
+  end
 end

@@ -21,7 +21,11 @@ export default observer(
 
     render() {
       if (!state.user) {
-        return <LoginView />;
+        if (window.location.href.indexOf("/signup") === -1) {
+          return <LoginView mode={"login"} />;
+        } else {
+          return <LoginView mode={"signup"} />;
+        }
       }
 
       return (

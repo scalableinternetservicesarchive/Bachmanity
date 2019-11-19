@@ -27,5 +27,24 @@ export default {
     });
 
     return res.data;
+  },
+
+  signup: async (username, password) => {
+    const body = {
+      user: {
+        name: username,
+        password: password
+      }
+    };
+
+    const res = await axios.post(config.backend + "/signup", body, {
+      withCredentials: true,
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    return res.data;
   }
 };

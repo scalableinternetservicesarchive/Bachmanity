@@ -17,13 +17,12 @@ export default observer(
         model.state.lobbies &&
         model.state.lobbies.map(lobby => {
           return (
-            <div className="LobbyItemWrapper">
+            <div className="LobbyItemWrapper" key={lobby.id}>
               <Link to={"/lobby/" + lobby.id}>
                 <LobbyListItem
-                  key={lobby.id}
                   lobbyTitle={lobby.title}
                   lobbyDesc={lobby.desc}
-                  videoId={lobby.currentVideoId}
+                  videoId={lobby.currentvideoid}
                 />
               </Link>
             </div>
