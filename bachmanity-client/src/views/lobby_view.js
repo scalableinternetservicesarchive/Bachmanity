@@ -48,22 +48,20 @@ export default observer(
           <div className="topOfPage">
             <div className="VideoContainer">
               {/*need to add to queue*/}
-              <VideoPlayer videoId={this.state.queue} />
+              <VideoPlayer videoId={this.state.lobbyInfo.currentVideoId} />
             </div>
 
             <div className="VideoPlaylist">
               <h4>Video Playlist</h4>
-              <ul>
-                {this.state.queue &&
-                  this.state.queue.map(videoQueueItem => {
-                    const videoId = videoQueueItem.video;
-                    return (
-                      <div>
-                        <VideoThumbnailPlaylist videoId={videoId} />
-                      </div>
-                    );
-                  })}
-              </ul>
+              {this.state.queue &&
+                this.state.queue.map(videoQueueItem => {
+                  const videoId = videoQueueItem.video;
+                  return (
+                    <div>
+                      <VideoThumbnailPlaylist videoId={videoId} />
+                    </div>
+                  );
+                })}
             </div>
           </div>
 
