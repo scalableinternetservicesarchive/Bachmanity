@@ -14,12 +14,21 @@ class QueuedVideosController < ApplicationController
     render json: @queued_video
   end
 
+  # GET /queued_videos/:lobby_id/new_videos/:since
+  def new_videos
+    puts ("\n\nIN NEW_VIDEOS\n\n")
+    params[:seqno] = params[:seqno].to_i
+    @queued_videos = QueuedVideo.where("lobby_id = ? AND id > ?", params[:lobby_id], params[:seqno])
+
+    render json: @queued_videos
+  end 
+
   # POST /queued_videos
   def create
     @queued_video = QueuedVideo.new(queued_video_params)
 
     if @queued_video.save
-      render json: @queued_video, status: :created, location: @queued_video
+      render json: @queued_video, status: :created, location: @lobby_queued_video
     else
       render json: @queued_video.errors, status: :unprocessable_entity
     end

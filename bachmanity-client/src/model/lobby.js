@@ -49,5 +49,23 @@ export default {
         message: message
       }
     });
+  },
+
+  getNewVideos: async (lobbyId, lastVideoId = null) => {
+    if (!lastVideoId) lastVideoId = 0;
+
+    const res = await axios.get(
+      config.backend + "/lobbies/" + lobbyId + "/queued_videos/new_videos/" + lastVideoId
+    );
+    return res.data;
+  },
+
+  postNewVideo: async (lobbyId, videoId) => {
+    await axios.post(config.backend + "/lobbies/" + lobbyId + "/queued_videos", {
+      queued_video: {
+        user_id: state.user.id,
+        video: videoId
+      }
+    });
   }
 };

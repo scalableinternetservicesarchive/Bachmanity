@@ -15,6 +15,11 @@ Rails.application.routes.draw do
           get 'new_messages/:seqno', to: "lobby_messages#new_messages"
         end 
       end
+      resource :queued_videos, only: [:index, :create] do 
+        collection do
+          get 'new_videos/:seqno', to: "queued_videos#new_videos"
+        end
+      end
       resources :queued_videos, only: [:index, :create, :destroy]
     end
 
