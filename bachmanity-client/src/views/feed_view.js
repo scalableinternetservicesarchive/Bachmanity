@@ -22,7 +22,7 @@ export default observer(
                 <LobbyListItem
                   lobbyTitle={lobby.title}
                   lobbyDesc={lobby.desc}
-                  videoId={lobby.currentVideoId}
+                  videoId={lobby.currentvideoid}
                 />
               </Link>
             </div>

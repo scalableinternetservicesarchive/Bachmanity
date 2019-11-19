@@ -1,6 +1,6 @@
 class LobbyMessagesController < ApplicationController
   before_action :set_lobby_message, only: [:show, :update, :destroy]
-  before_action :sanitize_page_params 
+  before_action :sanitize_page_params
 
   # GET /lobby_messages
   def index
@@ -11,10 +11,15 @@ class LobbyMessagesController < ApplicationController
   # GET /lobby_messages/:lobby_id/new_messages/:since
   def new_messages
     params[:seqno] = params[:seqno].to_i
-    @lobby_messages = LobbyMessage.where("lobby_id = ? AND id > ?", params[:lobby_id], params[:seqno])
 
-    render json: @lobby_messages
-  end 
+    # TODO: limit this to returning at most 100 messages if performance is poor
+    results = LobbyMessage.select("lobby_messages.*, users.name AS sender_name")
+      .joins(:user)
+      .where("lobby_messages.lobby_id = ? AND lobby_messages.id > ?",
+             params[:lobby_id], params[:seqno])
+
+    render json: results
+  end
 
   # GET /lobby_messages/1
   def show
@@ -34,22 +39,23 @@ class LobbyMessagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lobby_message
-      @lobby_message = LobbyMessage.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def lobby_message_params
-      params.require(:lobby_message)
-        .permit(:message, :lobby_id, :user_id)
-        .reverse_merge({
-          :lobby_id => params[:lobby_id],
-        })
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lobby_message
+    @lobby_message = LobbyMessage.find(params[:id])
+  end
 
-    # converts the parameters to integers 
-    def sanitize_page_params
-      params[:lobby_id] = params[:lobby_id].to_i
-    end
+  # Only allow a trusted parameter "white list" through.
+  def lobby_message_params
+    params.require(:lobby_message)
+      .permit(:message, :lobby_id, :user_id)
+      .reverse_merge({
+        :lobby_id => params[:lobby_id],
+      })
+  end
+
+  # converts the parameters to integers
+  def sanitize_page_params
+    params[:lobby_id] = params[:lobby_id].to_i
+  end
 end

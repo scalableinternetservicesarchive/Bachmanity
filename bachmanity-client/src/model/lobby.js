@@ -33,6 +33,16 @@ export default {
     return res.data;
   },
 
+  getQueue: async lobbyId => {
+    // localhost:3000/api/lobbies/1/queued_videos/
+    const res = await axios.get(config.backend + "/lobbies/" + lobbyId + "/queued_videos/");
+    return res.data;
+  },
+
+  // addToQueue: async (lobbyId, videoId) => {
+  //   const res = await axios.post(config.backend + "")
+  // }
+
   getNewMessages: async (lobbyId, lastMessageId = null) => {
     if (!lastMessageId) lastMessageId = 0;
 

@@ -5,11 +5,11 @@ export default props => {
   var videoUrl = "http://img.youtube.com/vi/".concat(videoId).concat("/0.jpg");
 
   const defaultStyle = {
-    width: "480px",
-    height: "270px",
+    width: "240px",
+    height: "100px",
     backgroundImage: "url(" + videoUrl + ")",
     backgroundPosition: "center",
-    backgroundSize: "auto"
+    backgroundSize: "240px 135px"
   };
   Object.assign(defaultStyle, props.style || {});
   return <div style={defaultStyle} />;

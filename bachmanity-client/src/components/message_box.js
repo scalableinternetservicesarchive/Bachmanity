@@ -60,7 +60,7 @@ export default class MessageBox extends React.Component {
     const messagesDom = this.state.messages.map(msg => {
       return (
         <div className="message" key={msg.id}>
-          {msg.id} : {msg.message}
+          <strong>{msg.sender_name}</strong>: {msg.message}
         </div>
       );
     });
