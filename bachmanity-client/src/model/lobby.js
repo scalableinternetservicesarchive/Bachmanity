@@ -33,15 +33,12 @@ export default {
     return res.data;
   },
 
+  // depricated in favor of getNewVideos for partial sync
   getQueue: async lobbyId => {
     // localhost:3000/api/lobbies/1/queued_videos/
     const res = await axios.get(config.backend + "/lobbies/" + lobbyId + "/queued_videos/");
     return res.data;
   },
-
-  // addToQueue: async (lobbyId, videoId) => {
-  //   const res = await axios.post(config.backend + "")
-  // }
 
   getNewMessages: async (lobbyId, lastMessageId = null) => {
     if (!lastMessageId) lastMessageId = 0;
@@ -61,12 +58,12 @@ export default {
     });
   },
 
-  getNewVideos: async (lobbyId, lastVideoId = null) => {
-    if (!lastVideoId) lastVideoId = 0;
-
-    const res = await axios.get(
-      config.backend + "/lobbies/" + lobbyId + "/queued_videos/new_videos/" + lastVideoId
-    );
+  getNewVideos: async (lobbyId, lastVideoId) => {
+    const route =
+      config.backend + "/lobbies/" + lobbyId + "/queued_videos/new_videos/" + lastVideoId;
+    console.log("hitting route: " + route);
+    const res = await axios.get(route);
+    console.log("getNewVideos res: ", res.data);
     return res.data;
   },
 

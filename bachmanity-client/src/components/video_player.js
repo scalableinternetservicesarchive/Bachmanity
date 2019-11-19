@@ -8,7 +8,7 @@ export default class VideoPlayer extends React.Component {
         <YouTube
           videoId={this.props.videoId}
           opts={{
-            width: window.innerWidth * 0.75,
+            width: "100%",
             height: window.innerHeight * 0.75,
             playerVars: {
               // https://developers.google.com/youtube/player_parameters

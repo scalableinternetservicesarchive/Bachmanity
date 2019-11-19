@@ -56,7 +56,6 @@ export default class MessageBox extends React.Component {
   }
 
   render() {
-    console.log(this.state.messages);
     const messagesDom = this.state.messages.map(msg => {
       return (
         <div className="message" key={msg.id}>
