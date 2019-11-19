@@ -21,7 +21,7 @@ class UserBehavior(TaskSet):
 
     # fetch a random lobby
     @task(2)
-    def JoinLobby(TaskSet):
+    class JoinLobby(TaskSequence):
         wait_time = between(1, 2)
 
         lobby_id = "-1"
@@ -31,9 +31,14 @@ class UserBehavior(TaskSet):
             lobby_list = self.client.get("/api/lobbies/").json()
             self.lobby_id = str(random.choice(lobby_list)["id"])
 
-        @task(1)
+        @seq_task(1)
         def get_lobby_metadata(self):
-            self.client.get("/api/lobbies/" + self.lobby_id)
+            self.client.get("/api/lobbies/" + self.lobby_id,
+                            name="/api/lobbies/[id]")
+
+        @seq_task(2)
+        def post_message_and_get_new_messages(self):
+            pass
 
 
 class WebsiteUser(HttpLocust):
