@@ -76,7 +76,7 @@ class UserBehavior(TaskSet):
                     "lobby_id": self.lobby_id,
                     "video": "https://www.youtube.com/watch?v=Zt8wH_yD8AY"
                 }
-            }, name="/ api/lobbies/: lobby_id/queued_videos/")
+            }, name="/ api/lobbies/:lobby_id/queued_videos/")
 
     @task(20)
     def logout(self):
