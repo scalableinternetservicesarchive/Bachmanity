@@ -23,7 +23,7 @@ export default observer(
         if (window.location.href.indexOf("/signup") === -1) {
           return <LoginView mode={"login"} />;
         } else {
-          return <LoginView mode={"signup"} />;
+          return <LoginView mode={"signup"} testProp={true} />;
         }
       }
 

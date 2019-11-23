@@ -45,5 +45,9 @@ module BachmanityServer
         resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
       end
     end
+
+    # cache mode
+    config.cache_store = :memory_store, { size: 64.megabytes } # memory cache 
+    # config.cache_store = :null_store # no cache 
   end
 end
