@@ -1,15 +1,16 @@
 import React from "react";
 import model from "../model";
 import "./message_box.css";
-
+import { Modal, Button } from "react-bootstrap";
 export default class MessageBox extends React.Component {
   state = {
     lastMessageId: 0,
-    messages: []
+    messages: [],
+    showModal: false
   };
 
   componentDidMount() {
-    this.intervalTimer = setInterval(() => {
+    const refreshMessages = () => {
       model.lobby
         .getNewMessages(this.props.lobbyId, this.state.lastMessageId)
         .then(serverMessages => {
@@ -33,11 +34,25 @@ export default class MessageBox extends React.Component {
         .catch(err => {
           alert("failed to fetch messages: " + err);
         });
-    }, 2000);
+    };
+    this.intervalTimer = setInterval(refreshMessages, 2000);
+    refreshMessages();
   }
 
   componentWillUnmount() {
     clearInterval(this.intervalTimer);
+  }
+
+  // state = {
+  //   showModal: false
+  // };
+
+  open() {
+    this.setState({ showModal: true });
+  }
+
+  close() {
+    this.setState({ showModal: false });
   }
 
   onChange(event) {
@@ -65,15 +80,48 @@ export default class MessageBox extends React.Component {
     });
 
     return (
-      <div className="messageBox">
-        <input
-          className="messageInput"
-          name="message"
-          onKeyPress={this.onKeyPress.bind(this)}
-          value={this.state.message}
-          onChange={this.onChange.bind(this)}
-        />
-        {messagesDom}
+      <div>
+        <button className="btn btn-outline-dark" onClick={this.open.bind(this)}>
+          {/* C<br />H <br /> A <br />T */}>
+        </button>
+
+        <div>
+          <Modal
+            className="modal-container"
+            show={this.state.showModal}
+            onHide={this.close.bind(this)}
+            animation={true}
+            bsSize="small"
+            backdrop={false}
+            diaglogClassName="modal-right-fade"
+            centered={false}
+            scrollable={true}
+            keyboard={true}
+          >
+            <Modal.Header closeButton>
+              {/* <Modal.Title>Chat</Modal.Title> */}
+              <input
+                className="messageInput"
+                name="message"
+                onKeyPress={this.onKeyPress.bind(this)}
+                value={this.state.message}
+                onChange={this.onChange.bind(this)}
+              />
+            </Modal.Header>
+
+            <Modal.Body>
+              <div className="messageBox">{messagesDom}</div>
+            </Modal.Body>
+
+            <Modal.Footer>
+              {/* <Button onClick={this.close.bind(this)}>Close</Button> */}
+              <p>
+                Use <kbd>Enter</kbd> to send message. Use <kbd>Esc</kbd> to
+                close chat window.
+              </p>
+            </Modal.Footer>
+          </Modal>
+        </div>
       </div>
     );
   }
