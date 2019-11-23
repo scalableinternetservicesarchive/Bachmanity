@@ -1,6 +1,7 @@
+from lib.util import randomString
 from locust import HttpLocust, TaskSet, task, between
 import random
-from lib.util import randomString
+import faker
 
 
 class UserBehavior(TaskSet):
@@ -25,16 +26,15 @@ class UserBehavior(TaskSet):
             "password": password
         })
 
-    # refresh the list of lobbies
-    # @task(1)
-    # def refresh_feed(self):
-    #     print("REFRESHING THE FEED!")
-    #     # TODO: differential sync for lobbies
-    #     self.client.get("/api/lobbies/")
-
-    # fetch a random lobby
     @task(2)
     class JoinLobby(TaskSequence):
+        """
+            actions
+                - list lobbies
+                - pick a lobby and join it 
+                - request new messages from the lobby
+                - possibly post a new message to the lobby 
+        """
         wait_time = between(1, 2)
 
         lobby_id = "-1"
