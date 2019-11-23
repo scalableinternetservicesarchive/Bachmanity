@@ -1,4 +1,4 @@
-require_relative 'boot'
+require_relative "boot"
 
 require "rails"
 # Pick the frameworks you want:
@@ -42,12 +42,17 @@ module BachmanityServer
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins /.*/
-        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
+        resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
       end
     end
 
     # cache mode
+<<<<<<< Updated upstream
     config.cache_store = :memory_store, { size: 64 * 1024 * 1024 } # memory cache 
     # config.cache_store = :null_store # no cache 
+=======
+    config.cache_store = :memory_store, { size: 64 * 1024 * 1024 } # memory cache
+    # config.cache_store = :null_store # no cache
+>>>>>>> Stashed changes
   end
 end

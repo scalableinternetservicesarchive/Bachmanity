@@ -124,17 +124,10 @@ export default observer(
               type="button"
               style={{ marginLeft: "10px", marginRight: "10px" }}
               onClick={() => {
-                const url = prompt("Please enter youtube video id");
+                const url = prompt("Please enter youtube video URL");
                 if (!url) return;
 
-                // FUNCTION FROM: https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url
-                function youtube_parser(url) {
-                  var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-                  var match = url.match(regExp);
-                  return match && match[7].length == 11 ? match[7] : false;
-                }
-
-                const videoId = youtube_parser(url);
+                const videoId = model.youtube_url_parser(url);
                 if (videoId) {
                   model.lobby.postNewVideo(this.props.match.params.id, videoId);
                 } else alert("Invalid Youtube Video URL");

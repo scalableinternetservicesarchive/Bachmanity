@@ -14,6 +14,9 @@ export default {
   },
 
   createLobby: async (title, desc, videoId) => {
+    if (!videoId) {
+      throw new Error("bad video url / video id provided to create lobby");
+    }
     const res = await axios.post(config.backend + "/lobbies", {
       title: title,
       desc: desc,
@@ -36,7 +39,9 @@ export default {
   // depricated in favor of getNewVideos for partial sync
   getQueue: async lobbyId => {
     // localhost:3000/api/lobbies/1/queued_videos/
-    const res = await axios.get(config.backend + "/lobbies/" + lobbyId + "/queued_videos/");
+    const res = await axios.get(
+      config.backend + "/lobbies/" + lobbyId + "/queued_videos/"
+    );
     return res.data;
   },
 
@@ -44,23 +49,34 @@ export default {
     if (!lastMessageId) lastMessageId = 0;
 
     const res = await axios.get(
-      config.backend + "/lobbies/" + lobbyId + "/lobby_messages/new_messages/" + lastMessageId
+      config.backend +
+        "/lobbies/" +
+        lobbyId +
+        "/lobby_messages/new_messages/" +
+        lastMessageId
     );
     return res.data;
   },
 
   postMessage: async (lobbyId, message) => {
-    await axios.post(config.backend + "/lobbies/" + lobbyId + "/lobby_messages", {
-      lobby_message: {
-        user_id: state.user.id,
-        message: message
+    await axios.post(
+      config.backend + "/lobbies/" + lobbyId + "/lobby_messages",
+      {
+        lobby_message: {
+          user_id: state.user.id,
+          message: message
+        }
       }
-    });
+    );
   },
 
   getNewVideos: async (lobbyId, lastVideoId) => {
     const route =
-      config.backend + "/lobbies/" + lobbyId + "/queued_videos/new_videos/" + lastVideoId;
+      config.backend +
+      "/lobbies/" +
+      lobbyId +
+      "/queued_videos/new_videos/" +
+      lastVideoId;
     console.log("hitting route: " + route);
     const res = await axios.get(route);
     console.log("getNewVideos res: ", res.data);
@@ -68,11 +84,14 @@ export default {
   },
 
   postNewVideo: async (lobbyId, videoId) => {
-    await axios.post(config.backend + "/lobbies/" + lobbyId + "/queued_videos", {
-      queued_video: {
-        user_id: state.user.id,
-        video: videoId
+    await axios.post(
+      config.backend + "/lobbies/" + lobbyId + "/queued_videos",
+      {
+        queued_video: {
+          user_id: state.user.id,
+          video: videoId
+        }
       }
-    });
+    );
   }
 };
