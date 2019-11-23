@@ -26,7 +26,7 @@ class UserBehavior(TaskSet):
             "password": password
         })
 
-    @task(2)
+    @task(80)
     class JoinLobby(TaskSequence):
         """
             actions
@@ -77,6 +77,11 @@ class UserBehavior(TaskSet):
                     "video": "https://www.youtube.com/watch?v=Zt8wH_yD8AY"
                 }
             }, name="/ api/lobbies/: lobby_id/queued_videos/")
+
+    @task(20)
+    def logout(self):
+        self.client.get("/api/logout")
+        self.login()
 
 
 class WebsiteUser(HttpLocust):
