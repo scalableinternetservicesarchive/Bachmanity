@@ -26,14 +26,14 @@ class UserBehavior(TaskSet):
             "password": password
         })
 
-    @task(2)
+    @task(80)
     class JoinLobby(TaskSequence):
         """
             actions
                 - list lobbies
-                - pick a lobby and join it 
+                - pick a lobby and join it
                 - request new messages from the lobby
-                - possibly post a new message to the lobby 
+                - possibly post a new message to the lobby
         """
         wait_time = between(1, 2)
 
@@ -67,6 +67,21 @@ class UserBehavior(TaskSet):
                         "message": randomString()
                     }
                 }, name="/api/lobbies/:lobby_id/lobby_messages/")
+
+        @seq_task(3)
+        @task(20)
+        def add_video_to_queue(self):
+            self.client.post("/api/lobbies/%s/queued_videos" % (self.lobby_id), json={
+                "queued_video": {
+                    "lobby_id": self.lobby_id,
+                    "video": "https://www.youtube.com/watch?v=Zt8wH_yD8AY"
+                }
+            }, name="/ api/lobbies/:lobby_id/queued_videos/")
+
+    @task(20)
+    def logout(self):
+        self.client.get("/api/logout")
+        self.login()
 
 
 class WebsiteUser(HttpLocust):
