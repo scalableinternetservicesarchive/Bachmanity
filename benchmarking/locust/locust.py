@@ -7,6 +7,9 @@ import faker
 class UserBehavior(TaskSet):
     def on_start(self):
         self.login()
+        lobby_list = self.client.get("/api/lobbies/").json()
+        self.lobby_id = str(random.choice(lobby_list)["id"])
+        self.get_lobby_metadata()
 
     def login(self):
         username = randomString()
@@ -24,10 +27,14 @@ class UserBehavior(TaskSet):
         self.client.post("/api/login", json={
             "name": username,
             "password": password
-        })
+        })  
+
+    def get_lobby_metadata(self):
+        self.client.get("/api/lobbies/" + self.lobby_id,
+                        name="/api/lobbies/:lobby_id")
 
     @task(80)
-    class JoinLobby(TaskSequence):
+    class JoinLobby(TaskSet):
         """
             actions
                 - list lobbies
@@ -36,24 +43,12 @@ class UserBehavior(TaskSet):
                 - possibly post a new message to the lobby
         """
         wait_time = between(1, 2)
-
-        lobby_id = "-1"
         latest_message_id = 0
 
-        def on_start(self):
-            lobby_list = self.client.get("/api/lobbies/").json()
-            self.lobby_id = str(random.choice(lobby_list)["id"])
-
-        @seq_task(1)
-        def get_lobby_metadata(self):
-            self.client.get("/api/lobbies/" + self.lobby_id,
-                            name="/api/lobbies/:lobby_id")
-
-        @seq_task(2)
-        @task(20)
+        @task(80)
         def post_message_and_get_new_messages(self):
             # get new messages for the lobby
-            new_messages = self.client.get("/api/lobbies/%s/lobby_messages/new_messages/%s" % (self.lobby_id, self.latest_message_id),
+            new_messages = self.client.get("/api/lobbies/%s/lobby_messages/new_messages/%s" % (self.parent.lobby_id, self.latest_message_id),
                                            name="/api/lobbies/:lobby_id/lobby_messages/new_messages/:latest_msg_seqno").json()
             if len(new_messages) > 0:
                 self.latest_message_id = max(
@@ -62,26 +57,33 @@ class UserBehavior(TaskSet):
                 )
             # post a test message to the other users in the lobby!
             if random.randint(0, 5) >= 3:
-                self.client.post("/api/lobbies/%s/lobby_messages/" % self.lobby_id, json={
+                self.parent.client.post("/api/lobbies/%s/lobby_messages/" % self.parent.lobby_id, json={
                     "lobby_message": {
                         "message": randomString()
                     }
                 }, name="/api/lobbies/:lobby_id/lobby_messages/")
-
-        @seq_task(3)
-        @task(20)
-        def add_video_to_queue(self):
-            self.client.post("/api/lobbies/%s/queued_videos" % (self.lobby_id), json={
+        
+        latest_seq_no = 0
+        @task(15)
+        def add_video_and_get_video_queue(self):
+            new_videos = self.client.get("/api/lobbies/%s/queued_videos/new_videos/%s" % (self.parent.lobby_id, self.latest_seq_no),
+            name="/api/lobbies/:lobby_id/queued_videos/new_videos/:latest_seqno").json()
+            if len(new_videos) > 0:
+                self.latest_seq_no = max(
+                    self.latest_seq_no,
+                    max(video["id"] for video in new_videos)
+                )
+            self.parent.client.post("/api/lobbies/%s/queued_videos" % (self.parent.lobby_id), json={
                 "queued_video": {
-                    "lobby_id": self.lobby_id,
+                    "lobby_id": self.parent.lobby_id,
                     "video": "https://www.youtube.com/watch?v=Zt8wH_yD8AY"
                 }
-            }, name="/ api/lobbies/:lobby_id/queued_videos/")
+            }, name="/api/lobbies/:lobby_id/queued_videos/")
 
-    @task(20)
-    def logout(self):
-        self.client.get("/api/logout")
-        self.login()
+        @task(5)
+        def logout(self):
+            self.parent.client.get("/api/logout")
+            self.parent.login()
 
 
 class WebsiteUser(HttpLocust):
