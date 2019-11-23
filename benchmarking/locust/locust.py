@@ -2,10 +2,28 @@ from locust import HttpLocust, TaskSet, task, between
 import random
 from lib.util import randomString
 
-
 class UserBehavior(TaskSet):
     def on_start(self):
         self.login()
+        self.makeLobbies(10)
+
+    # create num lobbies
+    def makeLobbies(self, num):
+        
+        # get number of curr lobbies
+        lobby_list = self.client.get("/api/lobbies/").json()
+        if (len(lobby_list) == 0):
+            id = 1
+        else:
+            id = lobby_list[len(lobby_list)-1]["id"]
+
+        while (id <= num):
+            new_lobby = self.client.post("/api/lobbies", json={
+                "title": "title",
+                "desc": "a desc",
+                "currentVideoId": "LDQcgkDn0yU"
+            }).json()
+            id = new_lobby["id"]
 
     def login(self):
         username = randomString()
@@ -68,6 +86,10 @@ class UserBehavior(TaskSet):
                     }
                 }, name="/api/lobbies/:lobby_id/lobby_messages/")
 
+
+# on set up action
+# set up 5-10 lobbies
+# run a function before the tests start running
 
 class WebsiteUser(HttpLocust):
     task_set = UserBehavior
