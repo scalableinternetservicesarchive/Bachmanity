@@ -26,7 +26,7 @@ class UserBehavior(TaskSet):
             "password": password
         })
 
-    @task(2)
+    @task(80)
     class JoinLobby(TaskSequence):
         """
             actions
@@ -67,7 +67,10 @@ class UserBehavior(TaskSet):
                         "message": randomString()
                     }
                 }, name="/api/lobbies/:lobby_id/lobby_messages/")
-
+    @task(20)
+    def logout(self):
+        self.client.get("/api/logout")
+        self.login()
 
 class WebsiteUser(HttpLocust):
     task_set = UserBehavior
