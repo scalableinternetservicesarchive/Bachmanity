@@ -17,7 +17,10 @@ class QueuedVideosController < ApplicationController
   # GET /queued_videos/:lobby_id/new_videos/:since
   def new_videos
     params[:seqno] = params[:seqno].to_i
-    @queued_videos = QueuedVideo.where("lobby_id = ? AND id > ?", params[:lobby_id], params[:seqno])
+
+    @queued_videos = Rails.cache.fetch("queued_videos_#{params[:lobby_id]}-#{params[:seqno]}", expires_in: 5000) do
+      QueuedVideo.where("lobby_id = ? AND id > ?", params[:lobby_id], params[:seqno])
+    end
 
     render json: @queued_videos
   end

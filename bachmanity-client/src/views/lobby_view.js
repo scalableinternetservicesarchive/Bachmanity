@@ -53,7 +53,7 @@ export default observer(
         // Change to 30000 after testing
       };
 
-      this.updateQueueTimer = setInterval(updateQueue, 3000);
+      this.updateQueueTimer = setInterval(updateQueue, 5000);
       setTimeout(updateQueue, 0);
     }
 

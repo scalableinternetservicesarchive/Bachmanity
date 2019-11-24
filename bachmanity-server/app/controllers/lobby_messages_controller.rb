@@ -14,12 +14,14 @@ class LobbyMessagesController < ApplicationController
     params[:seqno] = params[:seqno].to_i
 
     # TODO: limit this to returning at most 100 messages if performance is poor
-    results = LobbyMessage.select("lobby_messages.*, users.name AS sender_name")
-      .joins(:user)
-      .where("lobby_messages.lobby_id = ? AND lobby_messages.id > ?",
-             params[:lobby_id], params[:seqno])
-      .limit(100)
-      .order("lobby_messages.id ASC")
+    results = Rails.cache.fetch("lobby_messages_#{params[:lobby_id]}-#{params[:seqno]}", expires_in: 2) do
+      LobbyMessage.select("lobby_messages.*, users.name AS sender_name")
+        .joins(:user)
+        .where("lobby_messages.lobby_id = ? AND lobby_messages.id > ?",
+               params[:lobby_id], params[:seqno])
+        .limit(100)
+        .order("lobby_messages.id DESC")
+    end
 
     render json: results
   end

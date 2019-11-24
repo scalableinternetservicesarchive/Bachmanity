@@ -3,16 +3,25 @@ from locust import HttpLocust, TaskSet, task, between
 import random
 import faker
 
+
 class UserBehavior(TaskSet):
     def on_start(self):
         self.login()
-<<<<<<< HEAD
         self.makeLobbies(10)
+        self.joinALobby()
+
+    def joinALobby(self):
+        # join some random lobby :P
+        lobby_list = self.client.get("/api/lobbies/").json()
+        self.lobby_id = str(random.choice(lobby_list)["id"])
+
+        # get info for the lobby we just joined
+        self.client.get("/api/lobbies/" + self.lobby_id,
+                        name="/api/lobbies/:lobby_id")
 
     # create num lobbies
     def makeLobbies(self, num):
-        
-        # get number of curr lobbies
+        # check if there are enough lobbies
         lobby_list = self.client.get("/api/lobbies/").json()
         if (len(lobby_list) == 0):
             id = 1
@@ -26,11 +35,6 @@ class UserBehavior(TaskSet):
                 "currentVideoId": "LDQcgkDn0yU"
             }).json()
             id = new_lobby["id"]
-=======
-        lobby_list = self.client.get("/api/lobbies/").json()
-        self.lobby_id = str(random.choice(lobby_list)["id"])
-        self.get_lobby_metadata()
->>>>>>> 7694f5d7abc7ef33afa22770e95e47b7be957011
 
     def login(self):
         username = randomString()
@@ -48,11 +52,7 @@ class UserBehavior(TaskSet):
         self.client.post("/api/login", json={
             "name": username,
             "password": password
-        })  
-
-    def get_lobby_metadata(self):
-        self.client.get("/api/lobbies/" + self.lobby_id,
-                        name="/api/lobbies/:lobby_id")
+        })
 
     @task(80)
     class JoinLobby(TaskSet):
@@ -83,12 +83,12 @@ class UserBehavior(TaskSet):
                         "message": randomString()
                     }
                 }, name="/api/lobbies/:lobby_id/lobby_messages/")
-        
+
         latest_seq_no = 0
         @task(15)
         def add_video_and_get_video_queue(self):
             new_videos = self.client.get("/api/lobbies/%s/queued_videos/new_videos/%s" % (self.parent.lobby_id, self.latest_seq_no),
-            name="/api/lobbies/:lobby_id/queued_videos/new_videos/:latest_seqno").json()
+                                         name="/api/lobbies/:lobby_id/queued_videos/new_videos/:latest_seqno").json()
             if len(new_videos) > 0:
                 self.latest_seq_no = max(
                     self.latest_seq_no,
@@ -105,6 +105,7 @@ class UserBehavior(TaskSet):
         def logout(self):
             self.parent.client.get("/api/logout")
             self.parent.login()
+            self.parent.joinALobby()
 
 
 # on set up action

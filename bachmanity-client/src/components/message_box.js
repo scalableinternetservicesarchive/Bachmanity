@@ -15,17 +15,13 @@ export default class MessageBox extends React.Component {
         .getNewMessages(this.props.lobbyId, this.state.lastMessageId)
         .then(serverMessages => {
           if (serverMessages.length === 0) return;
-
           const newMessages = [...this.state.messages];
-
           for (const message of serverMessages) {
             newMessages.push(message);
           }
-
           newMessages.sort((a, b) => {
             return b.id - a.id;
           });
-
           const newState = Object.assign({}, this.state);
           newState.lastMessageId = newMessages[0].id;
           newState.messages = newMessages;
