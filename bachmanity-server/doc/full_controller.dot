@@ -1,0 +1,9 @@
+digraph controllers_diagram {
+	graph[overlap=false, splines=true, bgcolor="none"]
+	"LobbyMessagesController" [shape=Mrecord, label="{LobbyMessagesController|create\lindex\lnew_messages\lshow\l|\l|lobby_message_params\lsanitize_page_params\lset_lobby_message\l}"]
+	"QueuedVideosController" [shape=Mrecord, label="{QueuedVideosController|create\ldestroy\lindex\lnew_videos\lshow\lupdate\l|\l|queued_video_params\lsanitize_page_params\lset_queued_video\l}"]
+	"ApplicationController" [shape=Mrecord, label="{ApplicationController|_helper_methods\l_helper_methods=\l_helper_methods?\l_helpers\l_helpers=\l_helpers?\lcurrent_user\lhelpers_path\lhelpers_path=\lhelpers_path?\linclude_all_helpers\linclude_all_helpers=\linclude_all_helpers?\lrequire_login\l|\l|\l}"]
+	"UsersController" [shape=Mrecord, label="{UsersController|create\ldestroy\lindex\lshow\lupdate\l|\l|set_user\luser_params\l}"]
+	"SessionsController" [shape=Mrecord, label="{SessionsController|create\ldestroy\lnew\lshow\l|\l|\l}"]
+	"LobbiesController" [shape=Mrecord, label="{LobbiesController|create\ldestroy\lindex\lshow\l|\l|lobby_params\lset_lobby\l}"]
+}

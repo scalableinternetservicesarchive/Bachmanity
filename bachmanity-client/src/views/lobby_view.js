@@ -75,7 +75,7 @@ export default observer(
             className="navbar navbar-expand-lg navbar-dark bg-dark"
             style={{ marginBottom: "10px" }}
           >
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/">
               Bachmanity
               {/* <strong>{this.state.lobbyInfo.title}</strong>{" "}
               <small>{this.state.lobbyInfo.desc}</small> */}
