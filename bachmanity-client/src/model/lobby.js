@@ -83,6 +83,18 @@ export default {
     return res.data;
   },
 
+  deleteVideos: async (lobbyId, lastVideoId) => {
+    const route =
+      config.backend +
+      "/lobbies/" +
+      lobbyId +
+      "/queued_videos/new_videos/" +
+      lastVideoId;
+    console.log("hitting route: " + route);
+    const res = await axios.delte(route);
+    console.log("successfully deleted video");
+  },
+
   postNewVideo: async (lobbyId, videoId) => {
     await axios.post(
       config.backend + "/lobbies/" + lobbyId + "/queued_videos",

@@ -77,7 +77,7 @@ export default class MessageBox extends React.Component {
 
     return (
       <div>
-        <a className="btn " onClick={this.open.bind(this)}>
+        <a className="btn" onClick={this.open.bind(this)}>
           <div style={{ margin: "0px 0px -5px 5px" }}>
             <i class="material-icons">forum</i>
           </div>

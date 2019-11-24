@@ -10,9 +10,6 @@ import nightBg from "./img/Home@2x.png";
 
 export default observer(
   class FeedView extends React.Component {
-    state = {
-      showModal: false
-    };
     componentDidMount() {
       model.lobby.refreshAll();
     }
@@ -20,7 +17,8 @@ export default observer(
     state = {
       title: "",
       desc: "",
-      currentVideoId: ""
+      currentVideoId: "",
+      showModal: false
     };
 
     onSubmit(event) {
@@ -75,7 +73,7 @@ export default observer(
         <div className="FeedView">
           <nav className="navbar sticky-top navbar-expand-lg navbar-light  shadow-sm bg-white">
             <a className="navbar-brand" href="/">
-              SyncBach
+              Hi {model.state.user.name}!
             </a>
             <button
               className="navbar-toggler"

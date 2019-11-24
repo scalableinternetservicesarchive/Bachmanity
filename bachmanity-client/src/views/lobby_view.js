@@ -44,7 +44,7 @@ export default observer(
             const newState = Object.assign({}, this.state);
             newState.lastVideoId = newVideos[newVideos.length - 1].id;
             newState.videos = newVideos;
-            newState.currentVideoId = newVideos[newVideos.length - 1].video;
+            newState.currentVideoId = newVideos[0].video;
             this.setState(newState);
           })
           .catch(err => {
@@ -56,6 +56,10 @@ export default observer(
       this.updateQueueTimer = setInterval(updateQueue, 5000);
       setTimeout(updateQueue, 0);
     }
+
+    // deleteVideoFromQueue = () => {
+    //   model.lobby.deleteVideos(this.state.lobbyId,this.state.lastVideoId)
+    // }
 
     componentWillUnmount() {
       clearInterval(this.updateQueueTimer);
@@ -128,8 +132,8 @@ export default observer(
               <VideoPlayer videoId={this.state.currentVideoId} />
               <h1>
                 {this.state.lobbyInfo.title} <br />
-                <h5>{this.state.lobbyInfo.desc}</h5>
               </h1>
+              <h5>{this.state.lobbyInfo.desc}</h5>
             </div>
 
             {/* <div className="MessagesContainer">
@@ -163,12 +167,15 @@ export default observer(
 
             {this.state.videos.map(videoQueueItem => {
               return (
-                <div
+                <button
                   className="PlaylistItem shadow p-3 mb-3 bg-white rounded"
                   key={videoQueueItem.id}
+                  onClick={() => {
+                    this.setState({ currentVideoId: videoQueueItem.video });
+                  }}
                 >
                   <VideoThumbnailPlaylist videoId={videoQueueItem.video} />
-                </div>
+                </button>
               );
             })}
           </div>
