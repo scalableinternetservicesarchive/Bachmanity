@@ -29,6 +29,15 @@ export default {
     return res.data;
   },
 
+  logout: async () => {
+    const res = await axios.get(config.backend + "/logout", {
+      crossDomain: true,
+      withCredentials: true
+    });
+    state.user = null;
+    return state.user;
+  },
+
   signup: async (username, password) => {
     const body = {
       user: {

@@ -16,9 +16,10 @@ export default class LobbyListItem extends React.Component {
       //   <div className="row">
       //     <div className="col-xl-3 col-md-6 mb-4">
       //       <div className="card border-0 shadow">
-      //         <VideoThumbnail
-      //           // className="VideoThumbnail"
-      //           videoId={this.props.videoId}
+      //         <img
+      //           src={`http://img.youtube.com/vi/${this.props.videoId}/0.jpg`}
+      //           className="card-img-top"
+      //           alt="..."
       //         />
       //         <div className="card-body text-center">
       //           <h5 className="card-title mb-0">{this.props.lobbyTitle}</h5>
@@ -29,6 +30,14 @@ export default class LobbyListItem extends React.Component {
       //       </div>
       //     </div>
       //   </div>
+      // </div>
+
+      // <div class="col-lg-3 col-md-4 col-6">
+      //   <img
+      //     class="img-fluid img-thumbnail"
+      //     src={`http://img.youtube.com/vi/${this.props.videoId}/0.jpg`}
+      //     alt=""
+      //   />
       // </div>
 
       <div className="LobbyItem">

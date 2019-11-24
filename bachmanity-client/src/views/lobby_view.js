@@ -99,6 +99,21 @@ export default observer(
                   </Link>
                 </li>
               </ul>
+              <span className="navbar-text">
+                Hello {model.state.user.name}!
+              </span>
+              <span className="navbar-text">
+                <a
+                  className="nav-link"
+                  onClick={() => {
+                    model.user.logout();
+                  }}
+                >
+                  <div style={{ margin: "0px 0px -5px 10px" }}>
+                    <i class="material-icons"> exit_to_app</i>
+                  </div>
+                </a>
+              </span>
             </div>
           </nav>
 
@@ -121,7 +136,12 @@ export default observer(
           <div className="VideoPlaylist">
             <button
               type="button"
-              style={{ marginLeft: "10px", marginRight: "10px" }}
+              // className="btn btn-outline-dark"
+              style={{
+                marginLeft: "10px",
+                marginRight: "10px",
+                borderRadius: "5px"
+              }}
               onClick={() => {
                 const url = prompt("Please enter youtube video URL");
                 if (!url) return;

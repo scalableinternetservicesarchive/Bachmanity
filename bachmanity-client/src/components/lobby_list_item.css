@@ -1,28 +1,28 @@
 .LobbyItem {
   margin: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(201, 201, 201, 0.2);
   overflow: scroll;
+  border-radius: 5px;
 }
 
 .LobbyItem .content {
   padding-left: 10px;
   padding-right: 10px;
-  /* text-align: center; */
   overflow: wrap;
 }
 
 .LobbyItemWrapper a,
 .LobbyItemWrapper a:hover {
-  /* text-align: center; */
   text-decoration: none;
   color: black;
 }
 
 .LobbyItemWrapper:hover {
   background-color: rgba(137, 194, 255, 0.2) !important;
+  border-radius: 5px;
 }
-
-/* .VideoThumbnail {
+.VideoThumbnail {
   position: absolute;
   bottom: 0;
-} */
+  border-radius: 5px;
+}

@@ -97,7 +97,7 @@ export default class MessageBox extends React.Component {
             <Modal.Header closeButton>
               {/* <Modal.Title>Chat</Modal.Title> */}
               <input
-                className="messageInput"
+                className="form-control"
                 name="message"
                 onKeyPress={this.onKeyPress.bind(this)}
                 value={this.state.message}
