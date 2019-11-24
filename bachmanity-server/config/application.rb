@@ -47,12 +47,7 @@ module BachmanityServer
     end
 
     # cache mode
-<<<<<<< Updated upstream
-    config.cache_store = :memory_store, { size: 64 * 1024 * 1024 } # memory cache 
-    # config.cache_store = :null_store # no cache 
-=======
     config.cache_store = :memory_store, { size: 64 * 1024 * 1024 } # memory cache
     # config.cache_store = :null_store # no cache
->>>>>>> Stashed changes
   end
 end

@@ -119,7 +119,6 @@ export default observer(
 
           <hr />
           <div className="VideoPlaylist">
-            {/* <h4>Video Playlist</h4> */}
             <button
               type="button"
               style={{ marginLeft: "10px", marginRight: "10px" }}
