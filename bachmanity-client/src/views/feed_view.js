@@ -6,6 +6,7 @@ import "./feed_view.css";
 import accountLogout from "./account-logout.svg";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
+import nightBg from "./img/Home@2x.png";
 
 export default observer(
   class FeedView extends React.Component {
@@ -72,7 +73,7 @@ export default observer(
 
       return (
         <div className="FeedView">
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <nav className="navbar sticky-top navbar-expand-lg navbar-light  shadow-sm bg-white">
             <a className="navbar-brand" href="/">
               Bachmanity
             </a>
@@ -88,15 +89,14 @@ export default observer(
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarText">
-              <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
-                  <a className="nav-link" onClick={this.open.bind(this)}>
-                    Create Lobby
-                  </a>
-                </li>
-              </ul>
+              <ul className="navbar-nav mr-auto"></ul>
               <span className="navbar-text">
-                Hello {model.state.user.name}!
+                <a className="nav-link" onClick={this.open.bind(this)}>
+                  <div style={{ margin: "0px 0px -10px 10px" }}>
+                    <i className="material-icons">playlist_add</i>
+                  </div>
+                  Lobby
+                </a>
               </span>
               <span className="navbar-text">
                 <a
@@ -108,17 +108,19 @@ export default observer(
                   <div style={{ margin: "0px 0px -5px 10px" }}>
                     <i class="material-icons"> exit_to_app</i>
                   </div>
+                  Logout
                 </a>
               </span>
             </div>
           </nav>
-          <div className="container">
-            <div
-              className="row text-center text-lg-left"
-              style={{ margin: "0px 0px 0px 50px" }}
-            >
-              {lobbyList}
-            </div>
+          <h3 class="font-weight-light text-center mt-4 mb-0">Your Feed</h3>
+
+          <hr class="my-4" />
+          <div
+            className="row text-center text-lg-left"
+            style={{ margin: "0px 0px 20px 100px" }}
+          >
+            {lobbyList}
           </div>
           {/* <div className="LobbyList">{lobbyList}</div> */}
           <div>

@@ -77,9 +77,12 @@ export default class MessageBox extends React.Component {
 
     return (
       <div>
-        <button className="btn btn-outline-dark" onClick={this.open.bind(this)}>
-          {/* C<br />H <br /> A <br />T */}>
-        </button>
+        <a className="btn " onClick={this.open.bind(this)}>
+          <div style={{ margin: "0px 0px -5px 5px" }}>
+            <i class="material-icons">forum</i>
+          </div>
+          Chat
+        </a>
 
         <div>
           <Modal

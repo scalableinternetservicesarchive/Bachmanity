@@ -72,7 +72,7 @@ export default observer(
             {this.state.lobbyInfo.title} <small>{this.state.lobbyInfo.desc}</small>
           </h1> */}
           <nav
-            className="navbar navbar-expand-lg navbar-dark bg-dark"
+            className="navbar sticky-top navbar-expand-lg navbar-light shadow-sm bg-white"
             style={{ marginBottom: "10px" }}
           >
             <a className="navbar-brand" href="/">
@@ -93,18 +93,23 @@ export default observer(
             </button>
             <div className="collapse navbar-collapse" id="navbarText">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/">
-                    Home
-                  </Link>
-                </li>
+                <li className="nav-item"></li>
               </ul>
               <span className="navbar-text">
-                Hello {model.state.user.name}!
+                <Link className="btn nav-link" to="/">
+                  <div style={{ margin: "0px 0px -5px 5px" }}>
+                    <i class="material-icons">view_module</i>
+                  </div>
+                  Feed
+                </Link>
               </span>
               <span className="navbar-text">
+                <MessageBox lobbyId={this.props.match.params.id} />
+              </span>
+
+              <span className="navbar-text">
                 <a
-                  className="nav-link"
+                  className="btn nav-link"
                   onClick={() => {
                     model.user.logout();
                   }}
@@ -112,6 +117,7 @@ export default observer(
                   <div style={{ margin: "0px 0px -5px 10px" }}>
                     <i class="material-icons"> exit_to_app</i>
                   </div>
+                  Logout
                 </a>
               </span>
             </div>
@@ -126,10 +132,9 @@ export default observer(
               </h1>
             </div>
 
-            <div className="MessagesContainer">
+            {/* <div className="MessagesContainer">
               <MessageBox lobbyId={this.props.match.params.id} />
-              {/* <MessageModal lobbyId={this.props.match.params.id} /> */}
-            </div>
+            </div> */}
           </div>
 
           <hr />
@@ -140,6 +145,7 @@ export default observer(
               style={{
                 marginLeft: "10px",
                 marginRight: "10px",
+                marginBottom: "10px",
                 borderRadius: "5px"
               }}
               onClick={() => {
@@ -152,12 +158,15 @@ export default observer(
                 } else alert("Invalid Youtube Video URL");
               }}
             >
-              +
+              <i class="material-icons">add_circle_outline</i>
             </button>
 
             {this.state.videos.map(videoQueueItem => {
               return (
-                <div className="PlaylistItem" key={videoQueueItem.id}>
+                <div
+                  className="PlaylistItem shadow p-3 mb-3 bg-white rounded"
+                  key={videoQueueItem.id}
+                >
                   <VideoThumbnailPlaylist videoId={videoQueueItem.video} />
                 </div>
               );
