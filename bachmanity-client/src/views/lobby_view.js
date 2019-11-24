@@ -76,7 +76,7 @@ export default observer(
             style={{ marginBottom: "10px" }}
           >
             <a className="navbar-brand" href="/">
-              Bachmanity
+              SyncBach
               {/* <strong>{this.state.lobbyInfo.title}</strong>{" "}
               <small>{this.state.lobbyInfo.desc}</small> */}
             </a>
@@ -114,7 +114,7 @@ export default observer(
                     model.user.logout();
                   }}
                 >
-                  <div style={{ margin: "0px 0px -5px 10px" }}>
+                  <div style={{ margin: "0px 0px -5px 0px" }}>
                     <i class="material-icons"> exit_to_app</i>
                   </div>
                   Logout
@@ -127,8 +127,8 @@ export default observer(
             <div className="VideoContainer" style={{ padding: "0.5em" }}>
               <VideoPlayer videoId={this.state.currentVideoId} />
               <h1>
-                {this.state.lobbyInfo.title}{" "}
-                <small>{this.state.lobbyInfo.desc}</small>
+                {this.state.lobbyInfo.title} <br />
+                <h5>{this.state.lobbyInfo.desc}</h5>
               </h1>
             </div>
 
@@ -158,7 +158,7 @@ export default observer(
                 } else alert("Invalid Youtube Video URL");
               }}
             >
-              <i class="material-icons">add_circle_outline</i>
+              <i class="material-icons">add</i>
             </button>
 
             {this.state.videos.map(videoQueueItem => {

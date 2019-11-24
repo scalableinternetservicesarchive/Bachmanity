@@ -75,7 +75,7 @@ export default observer(
         <div className="FeedView">
           <nav className="navbar sticky-top navbar-expand-lg navbar-light  shadow-sm bg-white">
             <a className="navbar-brand" href="/">
-              Bachmanity
+              SyncBach
             </a>
             <button
               className="navbar-toggler"
