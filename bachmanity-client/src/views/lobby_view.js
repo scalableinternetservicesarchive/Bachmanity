@@ -107,7 +107,7 @@ export default observer(
                 <MessageBox lobbyId={this.props.match.params.id} />
               </span>
 
-              <span className="navbar-text">
+              {/* <span className="navbar-text">
                 <a
                   className="btn nav-link"
                   onClick={() => {
@@ -119,7 +119,7 @@ export default observer(
                   </div>
                   Logout
                 </a>
-              </span>
+              </span> */}
             </div>
           </nav>
 
