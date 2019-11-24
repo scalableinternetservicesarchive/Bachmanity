@@ -1,6 +1,6 @@
 branch-defaults:
   default:
-    environment: Bachmanity
+    environment: null
     group_suffix: null
 environment-defaults:
   Bachmanity:

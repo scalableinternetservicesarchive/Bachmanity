@@ -47,7 +47,7 @@ module BachmanityServer
     end
 
     # cache mode
-    config.cache_store = :memory_store, { size: 64 * 1024 * 1024 } # memory cache
+    config.cache_store = :memory_store, { size: 128 * 1024 * 1024 } # memory cache
     # config.cache_store = :null_store # no cache
   end
 end
