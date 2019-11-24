@@ -6,22 +6,24 @@ class LobbiesController < ApplicationController
   def index
     @lobbies = Lobby.all
 
-    results = ActiveRecord::Base.connection.execute("
-      SELECT 
-        lobbies.id AS id, 
-        lobbies.title AS title,
-        lobbies.desc AS desc,
-        queued_videos.video AS currentVideoId
-      FROM lobbies
-      JOIN queued_videos ON queued_videos.lobby_id = lobbies.id 
-      WHERE queued_videos.created_at = (
-          SELECT MAX(queued_videos.created_at) 
-          FROM queued_videos 
-          WHERE queued_videos.lobby_id = lobbies.id 
-      );
-    ")
+    json = Rails.cache.fetch("posts", expires_in: 10) do
+      results = ActiveRecord::Base.connection.execute("
+        SELECT 
+          lobbies.id AS id, 
+          lobbies.title AS title,
+          lobbies.desc AS desc,
+          queued_videos.video AS currentVideoId
+        FROM lobbies
+        JOIN queued_videos ON queued_videos.lobby_id = lobbies.id 
+        WHERE queued_videos.created_at = (
+            SELECT MAX(queued_videos.created_at) 
+            FROM queued_videos 
+            WHERE queued_videos.lobby_id = lobbies.id 
+        );
+      ").to_json
+    end
 
-    render json: results
+    render json: json
   end
 
   # GET /lobbies/1

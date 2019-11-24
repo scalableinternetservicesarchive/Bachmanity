@@ -6,7 +6,6 @@ import MessageBox from "../components/message_box";
 import VideoThumbnailPlaylist from "../components/video_thumbnail_playlist";
 import { Link } from "react-router-dom";
 import "./lobby_view.css";
-
 export default observer(
   class LobbyView extends React.Component {
     state = {
@@ -107,46 +106,43 @@ export default observer(
             <div className="VideoContainer" style={{ padding: "0.5em" }}>
               <VideoPlayer videoId={this.state.currentVideoId} />
               <h1>
-                {this.state.lobbyInfo.title} <small>{this.state.lobbyInfo.desc}</small>
+                {this.state.lobbyInfo.title}{" "}
+                <small>{this.state.lobbyInfo.desc}</small>
               </h1>
             </div>
-            <div className="VideoPlaylist">
-              <h4>Video Playlist</h4>
-              <button
-                type="button"
-                style={{ marginLeft: "10px", marginRight: "10px" }}
-                onClick={() => {
-                  const url = prompt("Please enter youtube video id");
-                  if (!url) return;
 
-                  // FUNCTION FROM: https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url
-                  function youtube_parser(url) {
-                    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-                    var match = url.match(regExp);
-                    return match && match[7].length == 11 ? match[7] : false;
-                  }
-
-                  const videoId = youtube_parser(url);
-                  if (videoId) {
-                    model.lobby.postNewVideo(this.props.match.params.id, videoId);
-                  } else alert("Invalid Youtube Video URL");
-                }}
-              >
-                Add a Video
-              </button>
-
-              {this.state.videos.map(videoQueueItem => {
-                return (
-                  <div className="PlaylistItem" key={videoQueueItem.id}>
-                    <VideoThumbnailPlaylist videoId={videoQueueItem.video} />
-                  </div>
-                );
-              })}
+            <div className="MessagesContainer">
+              <MessageBox lobbyId={this.props.match.params.id} />
+              {/* <MessageModal lobbyId={this.props.match.params.id} /> */}
             </div>
           </div>
 
-          <div className="MessagesContainer">
-            <MessageBox lobbyId={this.props.match.params.id} />
+          <hr />
+          <div className="VideoPlaylist">
+            {/* <h4>Video Playlist</h4> */}
+            <button
+              type="button"
+              style={{ marginLeft: "10px", marginRight: "10px" }}
+              onClick={() => {
+                const url = prompt("Please enter youtube video URL");
+                if (!url) return;
+
+                const videoId = model.youtube_url_parser(url);
+                if (videoId) {
+                  model.lobby.postNewVideo(this.props.match.params.id, videoId);
+                } else alert("Invalid Youtube Video URL");
+              }}
+            >
+              +
+            </button>
+
+            {this.state.videos.map(videoQueueItem => {
+              return (
+                <div className="PlaylistItem" key={videoQueueItem.id}>
+                  <VideoThumbnailPlaylist videoId={videoQueueItem.video} />
+                </div>
+              );
+            })}
           </div>
         </div>
       );

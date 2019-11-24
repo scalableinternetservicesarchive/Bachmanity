@@ -5,7 +5,6 @@ import { observer } from "mobx-react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import FeedView from "./views/feed_view";
 import LobbyView from "./views/lobby_view";
 import LoginView from "./views/login_view";
@@ -24,7 +23,7 @@ export default observer(
         if (window.location.href.indexOf("/signup") === -1) {
           return <LoginView mode={"login"} />;
         } else {
-          return <LoginView mode={"signup"} />;
+          return <LoginView mode={"signup"} testProp={true} />;
         }
       }
 

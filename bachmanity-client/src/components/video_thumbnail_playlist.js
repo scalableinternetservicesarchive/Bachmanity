@@ -6,7 +6,7 @@ export default props => {
 
   const defaultStyle = {
     width: "240px",
-    height: "100px",
+    height: "135px",
     backgroundImage: "url(" + videoUrl + ")",
     backgroundPosition: "center",
     backgroundSize: "240px 135px"

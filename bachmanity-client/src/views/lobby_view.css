@@ -1,25 +1,25 @@
 .LobbyView {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .LobbyView .topOfPage {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .LobbyView .VideoContainer {
-    width: 80%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
-.LobbyView .VideoPlaylist {
-    width: 20%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+.VideoPlaylist {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .LobbyView .VideoPlaylist .PlaylistItem {
-    margin: 10px;
+  margin: 10px;
 }

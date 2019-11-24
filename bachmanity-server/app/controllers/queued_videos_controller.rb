@@ -66,6 +66,7 @@ class QueuedVideosController < ApplicationController
 
   # converts the parameters to integers
   def sanitize_page_params
+    params[:user_id] = current_user.id
     params[:lobby_id] = params[:lobby_id].to_i
   end
 end
