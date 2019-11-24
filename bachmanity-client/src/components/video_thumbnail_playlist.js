@@ -9,7 +9,7 @@ export default props => {
     height: "135px",
     backgroundImage: "url(" + videoUrl + ")",
     backgroundPosition: "center",
-    backgroundSize: "240px 135px"
+    backgroundSize: "100% 100%"
   };
   Object.assign(defaultStyle, props.style || {});
   return <div style={defaultStyle} />;

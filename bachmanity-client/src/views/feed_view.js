@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import model from "../model";
 import LobbyListItem from "../components/lobby_list_item";
 import "./feed_view.css";
-
+import accountLogout from "./account-logout.svg";
 import { Link } from "react-router-dom";
 
 export default observer(
@@ -32,7 +32,7 @@ export default observer(
       return (
         <div className="FeedView">
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/">
               Bachmanity
             </a>
             <button
@@ -54,6 +54,16 @@ export default observer(
                   </Link>
                 </li>
               </ul>
+              <span className="navbar-text">
+                Hello {model.state.user.name}!
+              </span>
+              <span className="navbar-text">
+                <Link className="nav-link" to="/logout">
+                  <div style={{ margin: "0px 0px -5px 10px" }}>
+                    <i class="material-icons"> exit_to_app</i>
+                  </div>
+                </Link>
+              </span>
             </div>
           </nav>
 
