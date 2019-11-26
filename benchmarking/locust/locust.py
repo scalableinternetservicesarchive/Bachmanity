@@ -37,7 +37,8 @@ class UserBehavior(TaskSet):
             id = new_lobby["id"]
 
     def login(self):
-        username = randomString()
+        f = faker.Faker()
+        username = f.name()
         password = randomString()
 
         print("new user username: " + username + " password: " + password)
