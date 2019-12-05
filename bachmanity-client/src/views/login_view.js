@@ -58,7 +58,7 @@ export default observer(
                     <div className="row">
                       <div className="col-md-9 col-lg-8 mx-auto">
                         <h3 className="login-heading mb-4">
-                          Welcome to Bachmanity
+                          Welcome to BachmaniTV
                         </h3>
                         <form onSubmit={this.onSubmitLogin.bind(this)}>
                           <div className="form-label-group">
@@ -117,7 +117,7 @@ export default observer(
                     <div className="row">
                       <div className="col-md-9 col-lg-8 mx-auto">
                         <h3 className="login-heading mb-4">
-                          Welcome to Bachmanity
+                          Welcome to BachmanTV
                         </h3>
                         <form onSubmit={this.onSubmitSignUp.bind(this)}>
                           <div className="form-label-group">

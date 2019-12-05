@@ -12,7 +12,7 @@ export default class VideoPlayer extends React.Component {
             height: window.innerHeight * 0.75,
             playerVars: {
               // https://developers.google.com/youtube/player_parameters
-              autoplay: true,
+              autoplay: 1,
               start: 0,
               disablekb: 0,
               controls: 1
