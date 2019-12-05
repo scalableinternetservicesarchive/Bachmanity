@@ -7,19 +7,39 @@ class LobbiesController < ApplicationController
     @lobbies = Lobby.all
 
     json = Rails.cache.fetch("posts", expires_in: 10) do
+      # results = ActiveRecord::Base.connection.execute("
+      #   SELECT 
+      #     lobbies.id AS id, 
+      #     lobbies.title AS title,
+      #     lobbies.desc AS desc,
+      #     queued_videos.video AS currentVideoId
+      #   FROM lobbies
+      #   JOIN queued_videos ON queued_videos.lobby_id = lobbies.id 
+      #   WHERE queued_videos.created_at = (
+      #       SELECT MAX(queued_videos.created_at) 
+      #       FROM queued_videos 
+      #       WHERE queued_videos.lobby_id = lobbies.id 
+      #   );
+      # ").to_json
+
       results = ActiveRecord::Base.connection.execute("
         SELECT 
-          lobbies.id AS id, 
+          lobbies.id AS id,
           lobbies.title AS title,
           lobbies.desc AS desc,
-          queued_videos.video AS currentVideoId
-        FROM lobbies
-        JOIN queued_videos ON queued_videos.lobby_id = lobbies.id 
-        WHERE queued_videos.created_at = (
-            SELECT MAX(queued_videos.created_at) 
+          qv.video AS currentVideoId
+        FROM 
+        (
+          SELECT queued_videos.*
+          FROM queued_videos
+          INNER JOIN (
+            SELECT lobby_id, MAX(created_at) AS created_at
             FROM queued_videos 
-            WHERE queued_videos.lobby_id = lobbies.id 
-        );
+            GROUP BY lobby_id 
+          ) AS qvc 
+          ON qvc.lobby_id = queued_videos.lobby_id AND qvc.created_at = queued_videos.created_at
+        ) AS qv
+        INNER JOIN lobbies ON lobbies.id = qv.lobby_id 
       ").to_json
     end
 
