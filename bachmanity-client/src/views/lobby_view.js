@@ -76,11 +76,11 @@ export default observer(
             {this.state.lobbyInfo.title} <small>{this.state.lobbyInfo.desc}</small>
           </h1> */}
           <nav
-            className="navbar sticky-top navbar-expand-lg navbar-light shadow-sm bg-white"
+            className="navbar sticky-top navbar-expand-lg navbar-dark shadow-sm bg-dark"
             style={{ marginBottom: "10px" }}
           >
             <a className="navbar-brand" href="/">
-              SyncBach
+              BachmaniTV
               {/* <strong>{this.state.lobbyInfo.title}</strong>{" "}
               <small>{this.state.lobbyInfo.desc}</small> */}
             </a>
