@@ -37,8 +37,7 @@ class UserBehavior(TaskSet):
             id = new_lobby["id"]
 
     def login(self):
-        f = faker.Faker()
-        username = f.name()
+        username = randomString()
         password = randomString()
 
         print("new user username: " + username + " password: " + password)
@@ -67,7 +66,7 @@ class UserBehavior(TaskSet):
         wait_time = between(1, 2)
         latest_message_id = 0
 
-        @task(75)
+        @task(80)
         def post_message_and_get_new_messages(self):
             # get new messages for the lobby
             new_messages = self.client.get("/api/lobbies/%s/lobby_messages/new_messages/%s" % (self.parent.lobby_id, self.latest_message_id),
@@ -102,14 +101,6 @@ class UserBehavior(TaskSet):
                     "video": "https://www.youtube.com/watch?v=Zt8wH_yD8AY"
                 }
             }, name="/api/lobbies/:lobby_id/queued_videos/")
-
-        @task(5)
-        def make_new_lobby(self):
-            self.client.post("/api/lobbies", json={
-                "title": "task title",
-                "desc": "task a desc",
-                "currentVideoId": "LDQcgkDn0yU"
-            })
 
         @task(5)
         def logout(self):
