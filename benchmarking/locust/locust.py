@@ -7,12 +7,15 @@ import faker
 class UserBehavior(TaskSet):
     def on_start(self):
         self.login()
-        self.makeLobbies(10)
+        self.makeLobbies(20)
         self.joinALobby()
 
     def joinALobby(self):
         # join some random lobby :P
         lobby_list = self.client.get("/api/lobbies/").json()
+        if len(lobby_list) > 20:
+            lobby_list = lobby_list[0:20]
+        
         self.lobby_id = str(random.choice(lobby_list)["id"])
 
         # get info for the lobby we just joined
@@ -53,6 +56,15 @@ class UserBehavior(TaskSet):
             "name": username,
             "password": password
         })
+
+    @task(1)
+    def create_lobby(self):
+        new_lobby = self.client.post("/api/lobbies", json={
+            "title": "title",
+            "desc": "a desc",
+            "currentVideoId": "LDQcgkDn0yU"
+        }).json()
+
 
     @task(80)
     class JoinLobby(TaskSet):
